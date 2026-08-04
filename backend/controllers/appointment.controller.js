@@ -59,3 +59,113 @@ exports.createAppointment = async (req, res) => {
         });
     }
 };
+
+// Update appointment
+exports.updateAppointment = async (req, res) => {
+    try {
+        const appointment = await Appointment.update(req.params.id, req.body);
+
+        res.status(200).json({
+            success: true,
+            message: "Appointment updated successfully",
+            data: appointment
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
+// Delete appointment
+exports.deleteAppointment = async (req, res) => {
+    try {
+        await Appointment.delete(req.params.id);
+
+        res.status(200).json({
+            success: true,
+            message: "Appointment deleted successfully"
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
+// Update appointment status
+exports.updateAppointmentStatus = async (req, res) => {
+    try {
+        const appointment = await Appointment.updateStatus(
+            req.params.id,
+            req.body.status
+        );
+
+        res.status(200).json({
+            success: true,
+            message: "Appointment status updated successfully",
+            data: appointment
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
+// Get appointments by patient
+exports.getAppointmentsByPatient = async (req, res) => {
+    try {
+        const appointments = await Appointment.getByPatient(req.params.patientId);
+
+        res.status(200).json({
+            success: true,
+            count: appointments.length,
+            data: appointments
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
+// Get appointments by doctor
+exports.getAppointmentsByDoctor = async (req, res) => {
+    try {
+        const appointments = await Appointment.getByDoctor(req.params.doctorId);
+
+        res.status(200).json({
+            success: true,
+            count: appointments.length,
+            data: appointments
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
+// Search appointments
+exports.searchAppointments = async (req, res) => {
+    try {
+        const appointments = await Appointment.search(req.query.q);
+
+        res.status(200).json({
+            success: true,
+            count: appointments.length,
+            data: appointments
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
