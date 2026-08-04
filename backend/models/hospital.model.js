@@ -19,25 +19,26 @@ const Hospital = {
         );
 
         return result.rows[0];
+    },
+
+    // Search hospitals
+    async search(searchTerm) {
+        const result = await pool.query(
+            `
+            SELECT *
+            FROM hospitals
+            WHERE
+                name ILIKE $1
+                OR city ILIKE $1
+                OR district ILIKE $1
+            ORDER BY name ASC
+            `,
+            [`%${searchTerm}%`]
+        );
+
+        return result.rows;
     }
 
 };
 
-// Search hospitals
-async search(searchTerm) {
-    const result = await pool.query(
-        `
-        SELECT *
-        FROM hospitals
-        WHERE
-            name ILIKE $1
-            OR city ILIKE $1
-            OR district ILIKE $1
-        ORDER BY name ASC
-        `,
-        [`%${searchTerm}%`]
-    );
-
-    return result.rows;
-}
 module.exports = Hospital;
