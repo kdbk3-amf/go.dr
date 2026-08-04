@@ -1,3 +1,4 @@
+const Doctor = require("../models/doctor.model");
 exports.getAllDoctors = async (req, res) => {
   res.status(200).json({
     success: true,
