@@ -50,6 +50,104 @@ const Appointment = {
         );
 
         return result.rows[0];
+    },
+
+    // Update appointment
+    async update(id, data) {
+        const result = await pool.query(
+            `
+            UPDATE appointments
+            SET
+                appointment_date = $1,
+                appointment_time = $2,
+                status = $3,
+                notes = $4
+            WHERE id = $5
+            RETURNING *
+            `,
+            [
+                data.appointment_date,
+                data.appointment_time,
+                data.status,
+                data.notes,
+                id
+            ]
+        );
+
+        return result.rows[0];
+    },
+
+    // Delete appointment
+    async delete(id) {
+        await pool.query(
+            "DELETE FROM appointments WHERE id = $1",
+            [id]
+        );
+
+        return true;
+    },
+
+    // Update appointment status
+    async updateStatus(id, status) {
+        const result = await pool.query(
+            `
+            UPDATE appointments
+            SET status = $1
+            WHERE id = $2
+            RETURNING *
+            `,
+            [status, id]
+        );
+
+        return result.rows[0];
+    },
+
+    // Get appointments by patient
+    async getByPatient(patientId) {
+        const result = await pool.query(
+            `
+            SELECT *
+            FROM appointments
+            WHERE patient_id = $1
+            ORDER BY appointment_date DESC
+            `,
+            [patientId]
+        );
+
+        return result.rows;
+    },
+
+    // Get appointments by doctor
+    async getByDoctor(doctorId) {
+        const result = await pool.query(
+            `
+            SELECT *
+            FROM appointments
+            WHERE doctor_id = $1
+            ORDER BY appointment_date DESC
+            `,
+            [doctorId]
+        );
+
+        return result.rows;
+    },
+
+    // Search appointments
+    async search(keyword) {
+        const result = await pool.query(
+            `
+            SELECT *
+            FROM appointments
+            WHERE
+                CAST(patient_id AS TEXT) ILIKE $1
+                OR CAST(doctor_id AS TEXT) ILIKE $1
+                OR status ILIKE $1
+            ORDER BY appointment_date DESC
+            `,
+            [`%${keyword}%`]
+        );
+
+        return result.rows;
     }
 
 };
