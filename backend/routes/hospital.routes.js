@@ -9,4 +9,6 @@ router.get("/", hospitalController.getAllHospitals);
 // Get hospital by ID
 router.get("/:id", hospitalController.getHospitalById);
 
+// Search hospitals
+router.get("/search", hospitalController.searchHospitals);
 module.exports = router;
