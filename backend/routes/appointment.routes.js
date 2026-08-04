@@ -6,6 +6,12 @@ const appointmentController = require("../controllers/appointment.controller");
 // Search appointments
 router.get("/search", appointmentController.searchAppointments);
 
+// Upcoming appointments
+router.get("/upcoming", appointmentController.getUpcomingAppointments);
+
+// Appointment history
+router.get("/history", appointmentController.getAppointmentHistory);
+
 // Get appointments by patient
 router.get("/patient/:patientId", appointmentController.getAppointmentsByPatient);
 
