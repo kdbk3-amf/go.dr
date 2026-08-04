@@ -7,8 +7,10 @@ exports.getAllDoctors = async (req, res) => {
 
         res.status(200).json({
             success: true,
+            count: doctors.length,
             data: doctors
         });
+
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -33,6 +35,7 @@ exports.getDoctorById = async (req, res) => {
             success: true,
             data: doctor
         });
+
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -43,24 +46,63 @@ exports.getDoctorById = async (req, res) => {
 
 // Create doctor
 exports.createDoctor = async (req, res) => {
-    res.status(201).json({
-        success: true,
-        message: "Doctor profile created successfully"
-    });
+    try {
+        const doctor = await Doctor.create(req.body);
+
+        res.status(201).json({
+            success: true,
+            message: "Doctor profile created successfully",
+            data: doctor
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
 };
 
 // Update doctor
 exports.updateDoctor = async (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "Doctor profile updated successfully"
-    });
+    try {
+        const doctor = await Doctor.update(req.params.id, req.body);
+
+        if (!doctor) {
+            return res.status(404).json({
+                success: false,
+                message: "Doctor not found"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Doctor profile updated successfully",
+            data: doctor
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
 };
 
 // Delete doctor
 exports.deleteDoctor = async (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "Doctor profile deleted successfully"
-    });
+    try {
+        await Doctor.delete(req.params.id);
+
+        res.status(200).json({
+            success: true,
+            message: "Doctor profile deleted successfully"
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
 };
