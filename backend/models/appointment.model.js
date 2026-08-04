@@ -5,7 +5,11 @@ const Appointment = {
     // Get all appointments
     async getAll() {
         const result = await pool.query(
-            "SELECT * FROM appointments ORDER BY appointment_date DESC, appointment_time ASC"
+            `
+            SELECT *
+            FROM appointments
+            ORDER BY appointment_date DESC, appointment_time ASC
+            `
         );
 
         return result.rows;
@@ -14,7 +18,11 @@ const Appointment = {
     // Get appointment by ID
     async getById(id) {
         const result = await pool.query(
-            "SELECT * FROM appointments WHERE id = $1",
+            `
+            SELECT *
+            FROM appointments
+            WHERE id = $1
+            `,
             [id]
         );
 
@@ -80,7 +88,10 @@ const Appointment = {
     // Delete appointment
     async delete(id) {
         await pool.query(
-            "DELETE FROM appointments WHERE id = $1",
+            `
+            DELETE FROM appointments
+            WHERE id = $1
+            `,
             [id]
         );
 
@@ -109,7 +120,7 @@ const Appointment = {
             SELECT *
             FROM appointments
             WHERE patient_id = $1
-            ORDER BY appointment_date DESC
+            ORDER BY appointment_date DESC, appointment_time DESC
             `,
             [patientId]
         );
@@ -124,7 +135,7 @@ const Appointment = {
             SELECT *
             FROM appointments
             WHERE doctor_id = $1
-            ORDER BY appointment_date DESC
+            ORDER BY appointment_date DESC, appointment_time DESC
             `,
             [doctorId]
         );
@@ -145,6 +156,34 @@ const Appointment = {
             ORDER BY appointment_date DESC
             `,
             [`%${keyword}%`]
+        );
+
+        return result.rows;
+    },
+
+    // Get upcoming appointments
+    async getUpcoming() {
+        const result = await pool.query(
+            `
+            SELECT *
+            FROM appointments
+            WHERE appointment_date >= CURRENT_DATE
+            ORDER BY appointment_date ASC, appointment_time ASC
+            `
+        );
+
+        return result.rows;
+    },
+
+    // Get appointment history
+    async getHistory() {
+        const result = await pool.query(
+            `
+            SELECT *
+            FROM appointments
+            WHERE appointment_date < CURRENT_DATE
+            ORDER BY appointment_date DESC, appointment_time DESC
+            `
         );
 
         return result.rows;
