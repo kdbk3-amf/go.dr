@@ -6,6 +6,7 @@ const doctorRoutes = require("./routes/doctor.routes");
 const specialtyRoutes = require("./routes/specialty.routes");
 const hospitalRoutes = require("./routes/hospital.routes");
 const chamberRoutes=require("./routes/chamber.routes");
+const appointmentRoutes = require("./routes/appointment.routes");
 const app = express();
 
 app.use(cors());
@@ -16,6 +17,7 @@ app.use("/api/doctors", doctorRoutes);
 app.use("/api/specialties", specialtyRoutes);
 app.use("/api/hospitals", hospitalRoutes);
 app.use("/api/chambers",chamberRoutes);
+app.use("/api/appointments", appointmentRoutes);
 app.get("/", (req, res) => {
   res.json({
     success: true,
