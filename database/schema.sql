@@ -317,7 +317,7 @@ CREATE TABLE hospitals (
 
     phone VARCHAR(20),
 
-    email VARCHAR(150),
+    email VARCHAR(150) UNIQUE,
 
     website TEXT,
 
