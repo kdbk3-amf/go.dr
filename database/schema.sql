@@ -846,9 +846,15 @@ CREATE TABLE appointment_slots (
         REFERENCES appointments(id)
         ON DELETE SET NULL,
 
-    CONSTRAINT chk_slot_time
-        CHECK (start_time < end_time)
-);
+    )CONSTRAINT chk_slot_time
+CHECK (start_time < end_time),
+
+CONSTRAINT unique_slot
+UNIQUE (
+    availability_id,
+    slot_date,
+    start_time
+)
 
 -- ===========================================
 -- Appointment Slot Indexes
