@@ -1571,9 +1571,6 @@ EXECUTE FUNCTION update_updated_at_column();
 -- DATABASE SCHEMA VERSION
 -- ==========================================================
 
-COMMENT ON DATABASE current_database()
-IS 'Go Dr Database Schema v2.1 (Production Ready)';
-
 -- ==========================================================
 -- END OF SCHEMA
 -- Version : 2.1
