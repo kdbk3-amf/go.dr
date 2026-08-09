@@ -13,6 +13,10 @@ tokens + RBAC (patient, doctor, admin).
   CRUD, doctor search (12 filters + 7 sort modes + pagination), hospitals CRUD,
   chambers CRUD with ownership enforcement, Bangladesh locations (divisions +
   districts), 33 Phase 2 tests passing (63 total).
+- **Phase 3 (Appointment & Slot Booking):** COMPLETE — slot generation, transaction-
+  safe booking with double-booking prevention (app + DB partial unique index),
+  centralized status transitions + cancellation rules, patient/doctor/admin
+  appointment routes with RBAC + ownership, 35 Phase 3 tests passing (98 total).
 
 ## Key Commands
 ```bash
@@ -20,7 +24,7 @@ npm run dev              # Next.js dev server
 npm run build            # production build
 npm run lint             # eslint
 npm run typecheck        # tsc --noEmit
-npm test                 # vitest run (63 tests; test DB: godr_test)
+npm test                 # vitest run (98 tests; test DB: godr_test)
 npm run db:seed          # seed divisions, districts, specialties, hospitals, demo doctors
 npm run prisma:deploy    # apply migrations (non-destructive)
 npm run prisma:generate  # regenerate client after schema change
@@ -58,6 +62,10 @@ npm run prisma:generate  # regenerate client after schema change
 - `createVerifiedDoctor(opts)` — creates a verified doctor + specialty link +
   active chamber; returns `{ user, doctorId, accessToken, specialtyId, chamberId }`.
 - `cleanupHospitals(ids)`, `cleanupSpecialties(ids)`.
+- Phase 3 helpers: `createChamberForDoctor(doctorId, opts)` (custom visiting
+  schedule), `cleanupAppointments(ids)`, `cleanupChambers(ids)`,
+  `futureDateOnWeekday(weekday)` (0=Sun..6=Sat, guaranteed future + past the
+  patient cancellation window).
 
 ## Phase 2 Patterns
 - **Soft-delete:** `Specialty`, `Hospital`, `Chamber` all have `deletedAt`. Deletes
@@ -104,8 +112,60 @@ npm run prisma:generate  # regenerate client after schema change
 param names (e.g. `[id]` + `[slug]`). Public single-resource lookups therefore
 use a single `[param]` segment that dispatches on numeric id vs slug.
 
-## Do NOT (Phase 2 boundary)
-- Do NOT start Phase 3 (appointments, payments, SMS/OTP, reviews, prescriptions).
-- Do NOT alter existing auth/schema/migrations (Phase 0/1) — only extend.
-- Do NOT expose `phone`/`email`/`passwordHash`/`deletedAt` in public endpoints.
-- Do NOT trust client-supplied `doctorId` for chamber mutations.
+## Phase 3 Patterns
+- **Slot generation** (`src/lib/appointments/slots.ts`): builds a slot grid from
+  the chamber's `visitingDays` (comma-separated lowercase day abbrevs
+  `sun,mon,tue,wed,thu,fri,sat`), `startTime`/`endTime` (`@db.Time`), and
+  `slotDurationMinutes`. Past slots and slots already booked by a non-cancelled
+  appointment are marked `available: false`. Inactive chambers and
+  unverified/unavailable doctors → 404; non-visiting days → empty list.
+- **Transaction-safe booking** (`src/lib/appointments/booking.ts`): runs inside
+  `prisma.$transaction`. `doctorId`, `consultationFee`, `appointmentNumber`
+  (`APT-YYYY-NNNNNN` via DB sequence), `patientId`, and `serialNo` are all
+  server-derived — never trusted from the request body. Double-booking is
+  guarded at two layers: an app-level active-appointment check inside the tx,
+  AND the DB partial unique index `appointments_active_slot_unique_key` on
+  `(chamberId, appointmentDate, appointmentTime, serialNo) WHERE status NOT IN
+  cancelled`. A `Promise.all` race resolves to one 201 + one 409.
+- **Status transitions** (`src/lib/appointments/status.ts`): centralized
+  `ALLOWED_TRANSITIONS` map + `assertTransition` (throws 400 on invalid) +
+  `assertCanCancel` (configurable patient cancellation window; doctors/admins
+  have no window). `COMPLETED`/`NO_SHOW`/`CANCELLED` are terminal. Patients may
+  ONLY cancel their own appointment; they can never change
+  doctor/chamber/date/time/status. Doctors confirm/complete/no-show/cancel;
+  admins manage any status. `cancelledBy`/`cancelledAt`/`cancelReason` recorded
+  on cancel.
+- **Ownership:** patient & doctor appointment routes derive the patient/doctor
+  id from the authenticated user and filter `where: { ..., patientId|doctorId }`.
+  Cross-access returns 404 (existence not leaked), matching Phase 2 chamber
+  ownership semantics.
+- **Projection:** `toPublicAppointment` stringifies `bigint` ids / `Decimal` fee
+  and exposes only safe relation fields (patient/doctor/chamber names). It keeps
+  `patientProblem`/`doctorNotes` since these are only ever returned to a party of
+  the appointment (the owning patient, the owning doctor, or an admin) — never
+  in a fully public listing.
+- **Compound orderBy:** Prisma 5.22 requires compound `orderBy` as an array,
+  e.g. `[{ appointmentDate: "asc" }, { appointmentTime: "asc" }]` (typed
+  `Prisma.AppointmentOrderByWithRelationInput[]`). Single-field orderBy can
+  still be a plain object.
+
+## Phase 3 Route Map
+- `/api/v1/chambers/[chamberId]/slots` (GET — public, ?date=)
+- `/api/v1/appointments` (POST — patient booking; GET — admin list)
+- `/api/v1/appointments/my` (GET — patient own list)
+- `/api/v1/appointments/[id]` (GET — patient view; PATCH — patient cancel)
+- `/api/v1/doctor/appointments` (GET — doctor own list)
+- `/api/v1/doctor/appointments/[id]` (GET — doctor view; PATCH — confirm/complete/no-show/cancel)
+- `/api/v1/admin/appointments` (GET — admin list)
+- `/api/v1/admin/appointments/[id]` (GET — admin view; PATCH — manage status)
+
+## Do NOT (Phase 3 boundary)
+- Do NOT start Phase 4 (payments, SMS/OTP, notifications, reviews, prescriptions,
+  medical records) until explicitly approved.
+- Do NOT alter existing auth/schema/migrations (Phase 0/1/2) — only extend.
+- Do NOT expose `phone`/`email`/`passwordHash`/`deletedAt`/`patientProblem` PII
+  in public endpoints.
+- Do NOT trust client-supplied `doctorId`/`fee`/`appointmentNumber`/`serialNo`
+  for appointment creation — all server-derived.
+- Do NOT seed fake appointments against unverified demo doctors (would require
+  fake patients / medical records). The booking flow is covered by tests.

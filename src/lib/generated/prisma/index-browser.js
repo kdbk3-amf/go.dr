@@ -267,6 +267,7 @@ exports.Prisma.AppointmentScalarFieldEnum = {
   transactionId: 'transactionId',
   cancelReason: 'cancelReason',
   cancelledBy: 'cancelledBy',
+  cancelledAt: 'cancelledAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

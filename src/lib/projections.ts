@@ -1,5 +1,6 @@
 import { toJsonSafe } from "@/lib/serialize";
-import type { User, Patient, Doctor, Specialty, Hospital, Chamber } from "@/lib/generated/prisma";
+import type { User, Patient, Doctor, Specialty, Hospital, Chamber, Appointment } from "@/lib/generated/prisma";
+import { formatTimeOfDay } from "@/lib/query";
 
 type JsonPrimitive = string | number | boolean | null;
 type JsonVal = JsonPrimitive | JsonVal[] | { [k: string]: JsonVal };
@@ -97,5 +98,62 @@ export function toDoctorCard(doctor: {
       district: c.district,
       hospitalId: c.hospitalId ? c.hospitalId.toString() : null,
     })),
+  };
+}
+
+// ============================================================
+// Phase 3 — Appointment projection (public-safe)
+// ============================================================
+// Never exposes passwordHash/refreshTokens/phone/email of the
+// patient or doctor. Exposes only what the booking confirmation
+// and appointment detail screens need.
+// ============================================================
+
+type AppointmentWithRelations = Appointment & {
+  patient?: { user?: { fullName: string } } | null;
+  doctor?: { nameBn?: string | null; user?: { fullName: string; profilePhoto?: string | null } } | null;
+  chamber?: { chamberName: string; address: string; city?: string | null; district?: string | null } | null;
+};
+
+export function toPublicAppointment(a: AppointmentWithRelations): Record<string, JsonVal> {
+  return {
+    id: a.id.toString(),
+    appointmentNumber: a.appointmentNumber,
+    patientId: a.patientId.toString(),
+    doctorId: a.doctorId.toString(),
+    chamberId: a.chamberId.toString(),
+    appointmentDate: a.appointmentDate.toISOString().slice(0, 10),
+    appointmentTime: formatTimeOfDay(a.appointmentTime),
+    serialNo: a.serialNo,
+    status: a.status,
+    patientProblem: a.patientProblem,
+    doctorNotes: a.doctorNotes,
+    consultationFee:
+      typeof a.fee === "object" && a.fee !== null && "toString" in a.fee
+        ? (a.fee as { toString: () => string }).toString()
+        : String(a.fee),
+    paymentStatus: a.paymentStatus,
+    paymentMethod: a.paymentMethod,
+    cancelReason: a.cancelReason,
+    cancelledBy: a.cancelledBy ? a.cancelledBy.toString() : null,
+    cancelledAt: a.cancelledAt ? a.cancelledAt.toISOString() : null,
+    createdAt: a.createdAt.toISOString(),
+    updatedAt: a.updatedAt.toISOString(),
+    patient: a.patient ? { fullName: a.patient.user?.fullName ?? null } : null,
+    doctor: a.doctor
+      ? {
+          fullName: a.doctor.user?.fullName ?? null,
+          nameBn: a.doctor.nameBn ?? null,
+          profilePhoto: a.doctor.user?.profilePhoto ?? null,
+        }
+      : null,
+    chamber: a.chamber
+      ? {
+          chamberName: a.chamber.chamberName,
+          address: a.chamber.address,
+          city: a.chamber.city ?? null,
+          district: a.chamber.district ?? null,
+        }
+      : null,
   };
 }
