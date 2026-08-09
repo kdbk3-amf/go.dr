@@ -1,0 +1,50 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+/dist
+
+# misc
+.DS_Store
+*.pem
+Thumbs.db
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files — NEVER commit real secrets
+.env
+.env.test
+.env*.local
+.env.local
+.env.development
+.env.production
+
+# prisma generated client (kept by default, but ignore if you prefer)
+# /src/lib/generated
+
+# logs
+logs
+*.log
+
+# editor / IDE
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# typescript build info
+*.tsbuildinfo
+next-env.d.ts.bak

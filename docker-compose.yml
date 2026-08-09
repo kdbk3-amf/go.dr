@@ -1,0 +1,22 @@
+# Docker Compose for local Go Dr development.
+# Provides a PostgreSQL 15 database. Not used for production.
+services:
+  db:
+    image: postgres:15
+    container_name: godr-db
+    environment:
+      POSTGRES_USER: godr
+      POSTGRES_PASSWORD: godr_dev_password
+      POSTGRES_DB: godr
+    ports:
+      - "5432:5432"
+    volumes:
+      - godr-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U godr -d godr"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  godr-db-data:

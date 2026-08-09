@@ -1,0 +1,456 @@
+// ============================================================
+// Go Dr — Prisma Schema
+// PostgreSQL | Phase 0 Foundation
+// ============================================================
+// This schema is a clean rewrite of the original Go Dr SQL
+// schema. It preserves the sound domain model (users, patients,
+// doctors, hospitals, chambers, appointments, reviews,
+// notifications) and fixes every model/schema inconsistency
+// found in the legacy code:
+//   - Added the missing `specialties` table (+ doctor_specialties)
+//   - Fixed doctors: consistent `bio`, specialty FK, BMDC reg no
+//   - Fixed hospitals: added city/district/division for search
+//   - Fixed chambers: aligned columns (chamber_name, doctor_id,
+//     visiting_days, start_time, end_time) all required
+//   - Fixed appointments: generated appointment_number, renamed
+//     notes -> patient_problem/doctor_notes, added payment fields
+//   - Added refresh_tokens, otp_codes, audit_logs
+//   - Soft-delete (deleted_at) on user-facing tables
+//   - Proper indexes on all hot lookup columns
+//   - Timestamps everywhere; updated_at via Prisma @updatedAt
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================
+// ENUMS
+// ============================================================
+
+enum UserRole {
+  admin
+  doctor
+  patient
+}
+
+enum Gender {
+  male
+  female
+  other
+}
+
+enum BloodGroup {
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE
+  B_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum PaymentStatus {
+  UNPAID
+  PAID
+  REFUNDED
+  FAILED
+}
+
+enum PaymentMethod {
+  BKASH
+  NAGAD
+  ROCKET
+  CASH
+  CARD
+}
+
+enum OtpPurpose {
+  REGISTRATION
+  LOGIN
+  PASSWORD_RESET
+}
+
+enum NotificationType {
+  APPOINTMENT
+  SYSTEM
+  PAYMENT
+  REMINDER
+}
+
+// ============================================================
+// USERS
+// ============================================================
+
+model User {
+  id           BigInt    @id @default(autoincrement())
+  uuid         String    @unique @default(uuid())
+  fullName     String    @db.VarChar(150)
+  email        String?   @unique @db.VarChar(150)
+  phone        String    @unique @db.VarChar(20)
+  passwordHash String
+  role         UserRole
+  profilePhoto String?
+  isVerified   Boolean   @default(false)
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+
+  patient       Patient?
+  doctor        Doctor?
+  refreshTokens RefreshToken[]
+  otpCodes      OtpCode[]
+  notifications Notification[]
+  auditLogs     AuditLog[]
+
+  @@index([email])
+  @@index([phone])
+  @@index([role])
+  @@index([isActive])
+  @@index([deletedAt])
+  @@map("users")
+}
+
+// ============================================================
+// SPECIALTIES
+// ============================================================
+
+model Specialty {
+  id       BigInt  @id @default(autoincrement())
+  name     String  @unique @db.VarChar(150)
+  nameBn   String? @db.VarChar(150)
+  slug     String  @unique @db.VarChar(160)
+  icon     String? @db.VarChar(100)
+  parentId BigInt?
+
+  parent         Specialty?        @relation("SpecialtyParent", fields: [parentId], references: [id], onDelete: SetNull)
+  subSpecialties Specialty[]       @relation("SpecialtyParent")
+  doctors        DoctorSpecialty[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([parentId])
+  @@index([slug])
+  @@map("specialties")
+}
+
+// ============================================================
+// PATIENTS
+// ============================================================
+
+model Patient {
+  id                    BigInt      @id @default(autoincrement())
+  userId                BigInt      @unique
+  dateOfBirth           DateTime?   @db.Date
+  gender                Gender?
+  bloodGroup            BloodGroup?
+  address               String?
+  emergencyContactName  String?     @db.VarChar(150)
+  emergencyContactPhone String?     @db.VarChar(20)
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+  deletedAt             DateTime?
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointments Appointment[]
+  reviews      Review[]
+
+  @@index([gender])
+  @@index([bloodGroup])
+  @@index([deletedAt])
+  @@map("patients")
+}
+
+// ============================================================
+// DOCTORS
+// ============================================================
+
+model Doctor {
+  id              BigInt    @id @default(autoincrement())
+  userId          BigInt    @unique
+  qualification   String?
+  experienceYears Int       @default(0)
+  consultationFee Decimal   @default(0) @db.Decimal(10, 2)
+  bio             String?
+  profilePhoto    String?
+  bmdcRegNo       String?   @unique @db.VarChar(50)
+  isVerified      Boolean   @default(false)
+  isAvailable     Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+
+  user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  specialties  DoctorSpecialty[]
+  chambers     Chamber[]
+  appointments Appointment[]
+  reviews      Review[]
+
+  @@index([isVerified])
+  @@index([isAvailable])
+  @@index([bmdcRegNo])
+  @@index([deletedAt])
+  @@map("doctors")
+}
+
+// ============================================================
+// DOCTOR_SPECIALTIES (many-to-many)
+// ============================================================
+
+model DoctorSpecialty {
+  doctorId    BigInt
+  specialtyId BigInt
+
+  doctor    Doctor    @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  specialty Specialty @relation(fields: [specialtyId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@id([doctorId, specialtyId])
+  @@index([specialtyId])
+  @@map("doctor_specialties")
+}
+
+// ============================================================
+// HOSPITALS
+// ============================================================
+
+model Hospital {
+  id        BigInt    @id @default(autoincrement())
+  name      String    @db.VarChar(200)
+  slug      String    @unique @db.VarChar(220)
+  address   String
+  city      String?   @db.VarChar(100)
+  district  String?   @db.VarChar(100)
+  division  String?   @db.VarChar(100)
+  phone     String?   @db.VarChar(20)
+  email     String?   @db.VarChar(150)
+  website   String?
+  latitude  Float?
+  longitude Float?
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  chambers Chamber[]
+
+  @@index([name])
+  @@index([city])
+  @@index([district])
+  @@index([division])
+  @@index([isActive])
+  @@index([deletedAt])
+  @@map("hospitals")
+}
+
+// ============================================================
+// CHAMBERS
+// ============================================================
+
+model Chamber {
+  id                  BigInt    @id @default(autoincrement())
+  doctorId            BigInt
+  hospitalId          BigInt
+  chamberName         String    @db.VarChar(200)
+  address             String
+  city                String?   @db.VarChar(100)
+  district            String?   @db.VarChar(100)
+  visitingDays        String    @db.VarChar(100)
+  startTime           DateTime  @db.Time
+  endTime             DateTime  @db.Time
+  slotDurationMinutes Int       @default(15)
+  consultationFee     Decimal   @default(0) @db.Decimal(10, 2)
+  isActive            Boolean   @default(true)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  deletedAt           DateTime?
+
+  doctor       Doctor        @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  hospital     Hospital      @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
+  appointments Appointment[]
+
+  @@index([doctorId])
+  @@index([hospitalId])
+  @@index([city])
+  @@index([isActive])
+  @@index([deletedAt])
+  @@map("chambers")
+}
+
+// ============================================================
+// APPOINTMENTS
+// ============================================================
+// appointment_number is generated in the DB by a trigger backed
+// by the appointment_number_seq sequence. The sequence + trigger
+// are created in a raw SQL migration (see prisma/migrations).
+// The @default(dbgenerated(...)) mirrors that value so Prisma
+// returns the generated number after insert.
+// ============================================================
+
+model Appointment {
+  id                BigInt            @id @default(autoincrement())
+  appointmentNumber String            @unique @default(dbgenerated("'APT-' || to_char(now(),'YYYY') || '-' || lpad(nextval('appointment_number_seq')::text, 6, '0')")) @db.VarChar(30)
+  patientId         BigInt
+  doctorId          BigInt
+  chamberId         BigInt
+  appointmentDate   DateTime          @db.Date
+  appointmentTime   DateTime          @db.Time
+  serialNo          Int               @default(1)
+  status            AppointmentStatus @default(PENDING)
+  patientProblem    String?
+  doctorNotes       String?
+  fee               Decimal           @default(0) @db.Decimal(10, 2)
+  paymentStatus     PaymentStatus     @default(UNPAID)
+  paymentMethod     PaymentMethod?
+  transactionId     String?           @db.VarChar(100)
+  cancelReason      String?
+  cancelledBy       BigInt?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  patient Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctor  Doctor   @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  chamber Chamber  @relation(fields: [chamberId], references: [id], onDelete: Cascade)
+  reviews Review[]
+
+  @@index([appointmentNumber])
+  @@index([patientId])
+  @@index([doctorId])
+  @@index([chamberId])
+  @@index([appointmentDate])
+  @@index([status])
+  @@index([paymentStatus])
+  @@map("appointments")
+}
+
+// ============================================================
+// REVIEWS
+// ============================================================
+
+model Review {
+  id            BigInt    @id @default(autoincrement())
+  appointmentId BigInt    @unique
+  patientId     BigInt
+  doctorId      BigInt
+  rating        Int
+  review        String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  deletedAt     DateTime?
+
+  appointment Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  patient     Patient     @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctor      Doctor      @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  @@index([doctorId])
+  @@index([patientId])
+  @@index([rating])
+  @@index([deletedAt])
+  @@map("reviews")
+}
+
+// ============================================================
+// NOTIFICATIONS
+// ============================================================
+
+model Notification {
+  id        BigInt           @id @default(autoincrement())
+  userId    BigInt
+  type      NotificationType @default(SYSTEM)
+  title     String           @db.VarChar(200)
+  message   String
+  isRead    Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
+  @@map("notifications")
+}
+
+// ============================================================
+// REFRESH TOKENS
+// ============================================================
+
+model RefreshToken {
+  id        BigInt   @id @default(autoincrement())
+  userId    BigInt
+  tokenHash String   @unique
+  expiresAt DateTime
+  isRevoked Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@index([isRevoked])
+  @@map("refresh_tokens")
+}
+
+// ============================================================
+// OTP CODES
+// ============================================================
+
+model OtpCode {
+  id        BigInt     @id @default(autoincrement())
+  userId    BigInt
+  code      String     @db.VarChar(10)
+  purpose   OtpPurpose
+  expiresAt DateTime
+  isUsed    Boolean    @default(false)
+  createdAt DateTime   @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([code])
+  @@index([expiresAt])
+  @@index([isUsed])
+  @@map("otp_codes")
+}
+
+// ============================================================
+// AUDIT LOGS
+// ============================================================
+
+model AuditLog {
+  id        BigInt   @id @default(autoincrement())
+  userId    BigInt?
+  action    String   @db.VarChar(100)
+  entity    String?  @db.VarChar(100)
+  entityId  BigInt?
+  meta      Json?
+  ipAddress String?  @db.VarChar(45)
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([action])
+  @@index([entity])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
