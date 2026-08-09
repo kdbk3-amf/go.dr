@@ -104,6 +104,102 @@ export async function cleanupUsers(userIds: bigint[]): Promise<void> {
   await prisma.user.deleteMany({ where: { id: { in: userIds } } });
 }
 
+/** Delete hospitals created during a test (soft-delete-aware). */
+export async function cleanupHospitals(hospitalIds: bigint[]): Promise<void> {
+  await prisma.hospital.deleteMany({ where: { id: { in: hospitalIds } } });
+}
+
+/** Delete specialties created during a test. */
+export async function cleanupSpecialties(specialtyIds: bigint[]): Promise<void> {
+  await prisma.specialty.deleteMany({ where: { id: { in: specialtyIds } } });
+}
+
+/**
+ * Create a verified, available doctor with a specialty link and an
+ * active chamber. Returns the user, doctor id, access token, and
+ * related ids for use in tests.
+ */
+export async function createVerifiedDoctor(opts: {
+  fullName?: string;
+  phone?: string;
+  email?: string;
+  password?: string;
+  qualification?: string;
+  bmdcRegNo?: string;
+  experienceYears?: number;
+  consultationFee?: number;
+  isAvailable?: boolean;
+  specialtySlug?: string;
+  chamberCity?: string;
+  chamberDistrict?: string;
+  hospitalId?: bigint;
+} = {}): Promise<{
+  user: User;
+  doctorId: bigint;
+  accessToken: string;
+  specialtyId: bigint | null;
+  chamberId: bigint | null;
+}> {
+  const { user, accessToken } = await createUser({
+    role: "doctor",
+    phone: opts.phone,
+    email: opts.email,
+    password: opts.password ?? "Password123!",
+    fullName: opts.fullName ?? "Test Doctor",
+    isVerified: true,
+  });
+
+  const doctor = await prisma.doctor.update({
+    where: { userId: user.id },
+    data: {
+      qualification: opts.qualification ?? "MBBS",
+      bmdcRegNo: opts.bmdcRegNo ?? `BMDC-${rand(6)}`,
+      experienceYears: opts.experienceYears ?? 5,
+      consultationFee: opts.consultationFee ?? 500,
+      isAvailable: opts.isAvailable ?? true,
+      isVerified: true,
+    },
+  });
+
+  let specialtyId: bigint | null = null;
+  if (opts.specialtySlug) {
+    const specialty = await prisma.specialty.findUnique({ where: { slug: opts.specialtySlug } });
+    if (specialty) {
+      specialtyId = specialty.id;
+      await prisma.doctorSpecialty.create({
+        data: { doctorId: doctor.id, specialtyId: specialty.id },
+      }).catch(() => {});
+    }
+  }
+
+  let chamberId: bigint | null = null;
+  const chamber = await prisma.chamber.create({
+    data: {
+      doctorId: doctor.id,
+      hospitalId: opts.hospitalId ?? null,
+      chamberName: "Test Chamber",
+      address: "Test Address",
+      city: opts.chamberCity ?? "Dhaka",
+      district: opts.chamberDistrict ?? "Dhaka",
+      visitingDays: "sat,sun",
+      startTime: timeOfDay(10),
+      endTime: timeOfDay(14),
+      consultationFee: opts.consultationFee ?? 500,
+      isActive: true,
+    },
+  });
+  chamberId = chamber.id;
+
+  return { user, doctorId: doctor.id, accessToken, specialtyId, chamberId };
+}
+
+/** Time-of-day helper mirroring src/lib/query.ts for tests. */
+function timeOfDay(hour: number): Date {
+  const d = new Date();
+  d.setHours(hour, 0, 0, 0);
+  return d;
+}
+
 /** Reset the in-memory rate limiter between tests. */
 export async function resetRateLimit(): Promise<void> {
   const { __resetRateLimitStoreForTests } = await import("@/lib/rate-limit");

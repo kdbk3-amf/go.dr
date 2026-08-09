@@ -72,7 +72,7 @@ export const PATCH = withErrorHandler(async (req: NextRequest) => {
       }
     }
 
-    const { fullName, email, phone, profilePhoto, ...doctorFields } = data;
+    const { fullName, email, phone, profilePhoto, nameBn, ...doctorFields } = data;
 
     const updated = await prisma.$transaction(async (tx) => {
       const user = await tx.user.update({
@@ -85,10 +85,16 @@ export const PATCH = withErrorHandler(async (req: NextRequest) => {
         },
         include: { doctor: true },
       });
-      if (user.doctor && Object.keys(doctorFields).length > 0) {
+      const hasDoctorFields =
+        user.doctor &&
+        (Object.keys(doctorFields).length > 0 || nameBn !== undefined);
+      if (user.doctor && hasDoctorFields) {
         await tx.doctor.update({
           where: { userId: ctx.userId },
-          data: doctorFields,
+          data: {
+            ...(nameBn !== undefined ? { nameBn } : {}),
+            ...doctorFields,
+          },
         });
         return tx.user.findUnique({ where: { id: ctx.userId }, include: { doctor: true } });
       }

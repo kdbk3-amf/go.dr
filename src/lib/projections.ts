@@ -1,5 +1,5 @@
 import { toJsonSafe } from "@/lib/serialize";
-import type { User, Patient, Doctor } from "@/lib/generated/prisma";
+import type { User, Patient, Doctor, Specialty, Hospital, Chamber } from "@/lib/generated/prisma";
 
 type JsonPrimitive = string | number | boolean | null;
 type JsonVal = JsonPrimitive | JsonVal[] | { [k: string]: JsonVal };
@@ -33,4 +33,69 @@ export function toPublicPatient(user: User & { patient: Patient | null }): Recor
 /** Public-safe user + nested doctor profile. */
 export function toPublicDoctor(user: User & { doctor: Doctor | null }): Record<string, unknown> {
   return sanitize(toJsonSafe(user), SENSITIVE_FIELDS) as Record<string, unknown>;
+}
+
+/** Public-safe specialty (drops soft-delete column). */
+export function toPublicSpecialty(s: Specialty): Record<string, unknown> {
+  return sanitize(toJsonSafe(s), SENSITIVE_FIELDS) as Record<string, unknown>;
+}
+
+/** Public-safe hospital (drops soft-delete column). */
+export function toPublicHospital(h: Hospital): Record<string, unknown> {
+  return sanitize(toJsonSafe(h), SENSITIVE_FIELDS) as Record<string, unknown>;
+}
+
+/** Public-safe chamber (drops soft-delete column). */
+export function toPublicChamber(c: Chamber): Record<string, unknown> {
+  return sanitize(toJsonSafe(c), SENSITIVE_FIELDS) as Record<string, unknown>;
+}
+
+/**
+ * Build the doctor "card" shape returned by the public search/list
+ * endpoint: only verified-active doctors, only public fields, with
+ * specialties and a chamber/location summary. Never includes
+ * passwordHash, phone, email, or other private fields.
+ */
+export function toDoctorCard(doctor: {
+  id: bigint;
+  nameBn: string | null;
+  qualification: string | null;
+  experienceYears: number;
+  consultationFee: { toString: () => string };
+  bio: string | null;
+  profilePhoto: string | null;
+  bmdcRegNo: string | null;
+  isVerified: boolean;
+  isAvailable: boolean;
+  user: { fullName: string; profilePhoto: string | null } | null;
+  specialties: { specialty: { id: bigint; name: string; nameBn: string | null; slug: string; icon: string | null } }[];
+  chambers: { id: bigint; chamberName: string; city: string | null; district: string | null; hospitalId: bigint | null }[];
+}): Record<string, unknown> {
+  return {
+    id: doctor.id.toString(),
+    name: doctor.user?.fullName ?? null,
+    nameBn: doctor.nameBn,
+    profilePhoto: doctor.profilePhoto ?? doctor.user?.profilePhoto ?? null,
+    qualification: doctor.qualification,
+    experienceYears: doctor.experienceYears,
+    consultationFee: doctor.consultationFee.toString(),
+    bio: doctor.bio,
+    bmdcRegNo: doctor.bmdcRegNo,
+    isVerified: doctor.isVerified,
+    isAvailable: doctor.isAvailable,
+    specialties: doctor.specialties.map((ds) => ({
+      id: ds.specialty.id.toString(),
+      name: ds.specialty.name,
+      nameBn: ds.specialty.nameBn,
+      slug: ds.specialty.slug,
+      icon: ds.specialty.icon,
+    })),
+    chambers: doctor.chambers.map((c) => ({
+      id: c.id.toString(),
+      chamberName: c.chamberName,
+      city: c.city,
+      district: c.district,
+      hospitalId: c.hospitalId ? c.hospitalId.toString() : null,
+    })),
+  };
 }
