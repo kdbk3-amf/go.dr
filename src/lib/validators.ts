@@ -83,6 +83,7 @@ export const updatePatientSchema = z.object({
 // it is intentionally absent from this schema.
 export const updateDoctorSchema = z.object({
   fullName: fullName.optional(),
+  nameBn: z.string().trim().min(2).max(150).optional(),
   email: email.optional(),
   phone: bangladeshPhone.optional(),
   profilePhoto: z.string().trim().url().max(500).optional(),
@@ -100,4 +101,134 @@ export const updateDoctorSchema = z.object({
 // ----- Admin -----
 export const verifyDoctorSchema = z.object({
   isVerified: z.boolean(),
+});
+
+// ============================================================
+// Phase 2 — Specialties / Hospitals / Chambers / Doctor search
+// ============================================================
+
+const slug = z
+  .string()
+  .trim()
+  .min(2)
+  .max(160)
+  .regex(/^[a-z0-9-]+$/, "Slug must be lowercase letters, digits and hyphens");
+
+const safeString = (max: number) => z.string().trim().min(1).max(max);
+
+// ----- Specialty (admin CRUD) -----
+export const createSpecialtySchema = z.object({
+  name: safeString(150),
+  nameBn: z.string().trim().max(150).optional(),
+  slug: slug.optional(), // auto-generated if omitted
+  icon: z.string().trim().max(100).optional(),
+  parentId: z.coerce.number().int().positive().optional(),
+  isActive: z.boolean().optional(),
+  order: z.number().int().min(0).optional(),
+});
+
+export const updateSpecialtySchema = z.object({
+  name: safeString(150).optional(),
+  nameBn: z.string().trim().max(150).optional(),
+  slug: slug.optional(),
+  icon: z.string().trim().max(100).optional(),
+  parentId: z.coerce.number().int().positive().nullable().optional(),
+  isActive: z.boolean().optional(),
+  order: z.number().int().min(0).optional(),
+});
+
+// ----- Hospital (admin CRUD) -----
+export const createHospitalSchema = z.object({
+  name: safeString(200),
+  nameBn: z.string().trim().max(200).optional(),
+  slug: slug.optional(),
+  address: safeString(500),
+  city: z.string().trim().max(100).optional(),
+  district: z.string().trim().max(100).optional(),
+  division: z.string().trim().max(100).optional(),
+  phone: z.string().trim().max(20).optional(),
+  email: z.string().trim().toLowerCase().email().max(150).optional().or(z.literal("")),
+  website: z.string().trim().url().max(500).optional().or(z.literal("")),
+  latitude: z.number().min(-90).max(90).optional(),
+  longitude: z.number().min(-180).max(180).optional(),
+  isActive: z.boolean().optional(),
+});
+
+export const updateHospitalSchema = z.object({
+  name: safeString(200).optional(),
+  nameBn: z.string().trim().max(200).optional(),
+  slug: slug.optional(),
+  address: safeString(500).optional(),
+  city: z.string().trim().max(100).optional(),
+  district: z.string().trim().max(100).optional(),
+  division: z.string().trim().max(100).optional(),
+  phone: z.string().trim().max(20).optional(),
+  email: z.string().trim().toLowerCase().email().max(150).optional().or(z.literal("")),
+  website: z.string().trim().url().max(500).optional().or(z.literal("")),
+  latitude: z.number().min(-90).max(90).optional(),
+  longitude: z.number().min(-180).max(180).optional(),
+  isActive: z.boolean().optional(),
+});
+
+// ----- Chamber (doctor own CRUD + admin) -----
+export const createChamberSchema = z.object({
+  hospitalId: z.coerce.bigint().positive().optional().nullable(),
+  chamberName: safeString(200),
+  address: safeString(500),
+  city: z.string().trim().max(100).optional(),
+  district: z.string().trim().max(100).optional(),
+  visitingDays: safeString(100),
+  // Time-of-day as "HH:mm" (24h). Stored as @db.Time via Date.
+  startTime: z.string().regex(/^\d{2}:\d{2}$/, "Start time must be HH:mm"),
+  endTime: z.string().regex(/^\d{2}:\d{2}$/, "End time must be HH:mm"),
+  slotDurationMinutes: z.number().int().min(5).max(180).optional(),
+  consultationFee: z.number().nonnegative().max(100000).optional(),
+  isActive: z.boolean().optional(),
+});
+
+export const updateChamberSchema = z.object({
+  hospitalId: z.coerce.bigint().positive().nullable().optional(),
+  chamberName: safeString(200).optional(),
+  address: safeString(500).optional(),
+  city: z.string().trim().max(100).optional(),
+  district: z.string().trim().max(100).optional(),
+  visitingDays: safeString(100).optional(),
+  startTime: z.string().regex(/^\d{2}:\d{2}$/).optional(),
+  endTime: z.string().regex(/^\d{2}:\d{2}$/).optional(),
+  slotDurationMinutes: z.number().int().min(5).max(180).optional(),
+  consultationFee: z.number().nonnegative().max(100000).optional(),
+  isActive: z.boolean().optional(),
+});
+
+// ----- Pagination (shared query parser) -----
+export const paginationSchema = z.object({
+  page: z.coerce.number().int().min(1).default(1),
+  limit: z.coerce.number().int().min(1).max(100).default(20),
+});
+
+// ----- Doctor search query -----
+export const doctorSearchSchema = paginationSchema.extend({
+  name: z.string().trim().max(150).optional(),
+  specialty: z.string().trim().max(160).optional(), // name or slug
+  specialtySlug: z.string().trim().max(160).optional(),
+  district: z.string().trim().max(100).optional(),
+  city: z.string().trim().max(100).optional(),
+  hospital: z.string().trim().max(200).optional(), // name or slug
+  minExperience: z.coerce.number().int().min(0).max(70).optional(),
+  maxFee: z.coerce.number().nonnegative().max(100000).optional(),
+  minFee: z.coerce.number().nonnegative().max(100000).optional(),
+  verified: z.enum(["true", "false"]).optional(),
+  available: z.enum(["true", "false"]).optional(),
+  sort: z
+    .enum(["experience", "experience_desc", "fee", "fee_desc", "name", "name_desc", "newest"])
+    .default("newest"),
+});
+
+// ----- Hospital search query -----
+export const hospitalSearchSchema = paginationSchema.extend({
+  name: z.string().trim().max(200).optional(),
+  district: z.string().trim().max(100).optional(),
+  city: z.string().trim().max(100).optional(),
+  division: z.string().trim().max(100).optional(),
+  active: z.enum(["true", "false"]).optional(),
 });

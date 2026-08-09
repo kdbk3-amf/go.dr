@@ -138,6 +138,27 @@ exports.Prisma.UserScalarFieldEnum = {
   deletedAt: 'deletedAt'
 };
 
+exports.Prisma.DivisionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  nameBn: 'nameBn',
+  slug: 'slug',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DistrictScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  nameBn: 'nameBn',
+  slug: 'slug',
+  divisionId: 'divisionId',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SpecialtyScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -145,8 +166,11 @@ exports.Prisma.SpecialtyScalarFieldEnum = {
   slug: 'slug',
   icon: 'icon',
   parentId: 'parentId',
+  isActive: 'isActive',
+  order: 'order',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.PatientScalarFieldEnum = {
@@ -166,6 +190,7 @@ exports.Prisma.PatientScalarFieldEnum = {
 exports.Prisma.DoctorScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  nameBn: 'nameBn',
   qualification: 'qualification',
   experienceYears: 'experienceYears',
   consultationFee: 'consultationFee',
@@ -188,6 +213,7 @@ exports.Prisma.DoctorSpecialtyScalarFieldEnum = {
 exports.Prisma.HospitalScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  nameBn: 'nameBn',
   slug: 'slug',
   address: 'address',
   city: 'city',
@@ -385,6 +411,8 @@ exports.OtpPurpose = exports.$Enums.OtpPurpose = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Division: 'Division',
+  District: 'District',
   Specialty: 'Specialty',
   Patient: 'Patient',
   Doctor: 'Doctor',

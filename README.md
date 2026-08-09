@@ -2,8 +2,9 @@
 
 A production-ready healthcare platform for **Bangladesh** that connects patients with verified doctors, hospitals and easy appointment booking.
 
-> **Status:** Phase 0 — Foundation (project structure, database schema, configuration).
-> Authentication, appointments, payments, SMS/OTP and frontend pages are implemented in later phases.
+> **Status:** Phase 2 — Core Doctor, Specialty, Hospital & Chamber System (complete).
+> Phase 0 (foundation), Phase 1 (auth & users), and Phase 2 (doctor/specialty/hospital/chamber/search) are implemented.
+> Appointments, payments, SMS/OTP, notifications, reviews, prescriptions, medical records and the frontend UI are planned for later phases.
 
 ## Tech Stack
 
@@ -11,7 +12,7 @@ A production-ready healthcare platform for **Bangladesh** that connects patients
 | --- | --- |
 | Frontend | Next.js 14 (App Router), React 18, TypeScript |
 | Styling | Tailwind CSS |
-| API | REST via Next.js Route Handlers (planned) |
+| API | REST via Next.js Route Handlers |
 | Database | PostgreSQL 15+ |
 | ORM | Prisma 5 |
 | Validation | Zod |
@@ -137,6 +138,141 @@ Open http://localhost:3000 — the home page shows foundation status and DB conn
 | `npm run db:seed` | Run the seed script |
 | `npm run db:setup` | Migrate + seed in one command |
 | `npm run prisma:studio` | Open Prisma Studio (DB browser) |
+| `npm test` | Run the integration test suite (63 tests) |
+
+## API Reference
+
+All API routes are prefixed `/api/v1`. Public `GET` endpoints require no
+authentication; mutation endpoints require a `Bearer` access token and the
+correct role. Responses use the envelope `{ success, data, meta }`.
+
+### Authentication (Phase 1)
+
+| Method | Endpoint | Auth | Description |
+| --- | --- | --- | --- |
+| POST | `/api/v1/auth/register` | – | Register as patient or doctor |
+| POST | `/api/v1/auth/login` | – | Login (phone or email + password) |
+| POST | `/api/v1/auth/refresh` | cookie | Rotate refresh token |
+| POST | `/api/v1/auth/logout` | cookie | Revoke refresh token, clear cookie |
+| GET | `/api/v1/auth/me` | bearer | Current user profile |
+| GET/PATCH | `/api/v1/patients/me` | patient | Get/update own patient profile |
+| GET/PATCH | `/api/v1/doctors/me` | doctor | Get/update own doctor profile |
+| GET | `/api/v1/admin/users` | admin | Paginated user list |
+| GET | `/api/v1/admin/doctors` | admin | Paginated doctor list |
+| GET/PATCH | `/api/v1/admin/doctors/[id]` | admin | View/activate a doctor |
+| PATCH | `/api/v1/admin/doctors/[id]/verify` | admin | Verify/unverify a doctor |
+
+### Specialties (Phase 2)
+
+| Method | Endpoint | Auth | Description |
+| --- | --- | --- | --- |
+| GET | `/api/v1/specialties` | – | List active specialties (paginated) |
+| GET | `/api/v1/specialties/[id-or-slug]` | – | Specialty by numeric id or slug |
+| GET | `/api/v1/admin/specialties` | admin | All specialties (incl. inactive) |
+| POST | `/api/v1/admin/specialties` | admin | Create specialty |
+| PATCH | `/api/v1/admin/specialties/[id]` | admin | Update specialty |
+| DELETE | `/api/v1/admin/specialties/[id]` | admin | Soft-delete specialty |
+
+### Doctors & Search (Phase 2)
+
+| Method | Endpoint | Auth | Description |
+| --- | --- | --- | --- |
+| GET | `/api/v1/doctors` | – | Search verified active doctors |
+| GET | `/api/v1/doctors/[id]` | – | Public doctor profile |
+
+Doctor search filters (`GET /api/v1/doctors`):
+
+| Param | Example | Notes |
+| --- | --- | --- |
+| `name` | `?name=Arif` | Full-name contains (case-insensitive) |
+| `specialty` | `?specialty=cardiology` | Name or slug |
+| `specialtySlug` | `?specialtySlug=cardiology` | Exact slug |
+| `district` | `?district=Chattogram` | Via chamber location |
+| `city` | `?city=Chattogram` | Via chamber location |
+| `hospital` | `?hospital=square` | Name or slug |
+| `minExperience` | `?minExperience=10` | Years |
+| `maxFee` | `?maxFee=1000` | Consultation fee upper bound |
+| `minFee` | `?minFee=500` | Consultation fee lower bound |
+| `verified` | `?verified=true` | Default `true` (public only) |
+| `available` | `?available=true` | Default `true` (public only) |
+| `sort` | `?sort=fee_desc` | `experience`, `experience_desc`, `fee`, `fee_desc`, `name`, `name_desc`, `newest` |
+| `page`, `limit` | `?page=1&limit=20` | Pagination (limit max 100) |
+
+Example:
+
+```
+GET /api/v1/doctors?specialty=cardiology&district=Chattogram&page=1&limit=20
+```
+
+### Hospitals (Phase 2)
+
+| Method | Endpoint | Auth | Description |
+| --- | --- | --- | --- |
+| GET | `/api/v1/hospitals` | – | Search hospitals (name, district, city, division) |
+| GET | `/api/v1/hospitals/[id-or-slug]` | – | Hospital by numeric id or slug |
+| GET/POST | `/api/v1/admin/hospitals` | admin | List all / create |
+| PATCH/DELETE | `/api/v1/admin/hospitals/[id]` | admin | Update / soft-delete |
+
+### Chambers (Phase 2)
+
+| Method | Endpoint | Auth | Description |
+| --- | --- | --- | --- |
+| GET | `/api/v1/chambers` | – | Public active chambers (filter: doctorId, hospitalId, district, city) |
+| GET | `/api/v1/doctors/me/chambers` | doctor | List own chambers |
+| POST | `/api/v1/doctors/me/chambers` | doctor | Create own chamber |
+| PATCH/DELETE | `/api/v1/doctors/me/chambers/[id]` | doctor | Update/deactivate own chamber (ownership enforced) |
+| GET | `/api/v1/admin/chambers` | admin | All chambers |
+| PATCH/DELETE | `/api/v1/admin/chambers/[id]` | admin | Update/soft-delete any chamber |
+
+### Locations (Phase 2)
+
+| Method | Endpoint | Auth | Description |
+| --- | --- | --- | --- |
+| GET | `/api/v1/divisions` | – | List divisions + nested districts |
+| GET | `/api/v1/districts` | – | List districts (optional `?division=slug`) |
+
+## Authentication
+
+- **Access token:** JWT (15 min), sent as `Authorization: Bearer <token>`.
+- **Refresh token:** JWT (7 days), stored in an httpOnly, secure, sameSite cookie; rotated on each refresh with reuse detection.
+- **RBAC:** roles `patient`, `doctor`, `admin`. Mutation endpoints enforce role + ownership.
+- Doctors cannot self-verify, cannot change `isVerified`, and cannot edit another doctor's chamber. Ownership is derived from the authenticated user, never from client-supplied ids.
+
+## Workflow
+
+1. Admin seeds reference data (specialties, hospitals, divisions/districts).
+2. A doctor registers and fills their profile (qualification, BMDC, fee, bio, Bangla name) via `PATCH /api/v1/doctors/me`.
+3. An admin verifies the doctor via `PATCH /api/v1/admin/doctors/[id]/verify`.
+4. The verified doctor creates chambers via `POST /api/v1/doctors/me/chambers`.
+5. Patients search verified doctors via `GET /api/v1/doctors` and view profiles via `GET /api/v1/doctors/[id]`.
+
+## Database Migrations & Seed
+
+```bash
+# Apply migrations (non-destructive, additive only)
+npm run prisma:deploy
+
+# Seed reference data + demo doctors (demo doctors are unverified & labelled)
+npm run db:seed
+
+# Or both
+npm run db:setup
+```
+
+Seed creates: 8 divisions, 50 districts, 18 specialties, 8 hospitals, 3 demo
+doctors (clearly labelled `[DEMO]` and **never verified**) with chambers, and
+one development admin account. Demo doctors cannot be mistaken for real
+practitioners.
+
+## Development
+
+```bash
+npm run dev          # start dev server on :3000
+npm test             # 63 integration tests (auth + Phase 2)
+npm run typecheck    # tsc --noEmit
+npm run lint         # eslint
+npm run build        # production build
+```
 
 ## Security Notes
 
@@ -145,6 +281,10 @@ Open http://localhost:3000 — the home page shows foundation status and DB conn
 - `.env.example` contains only non-secret placeholders.
 - The seed admin password is hashed before storage; change it in production.
 - Production secrets must be supplied via environment variables / your host's secret manager.
+- Public doctor/chamber endpoints never expose `passwordHash`, `phone`, `email`, or `deletedAt`.
+- Doctor chamber ownership is verified server-side; client-supplied `doctorId` is ignored for mutations.
+- All input is validated with Zod; pagination `limit` is capped at 100 to prevent unrestricted queries.
+- Admin mutations are audit-logged in `audit_logs`.
 
 ## License
 

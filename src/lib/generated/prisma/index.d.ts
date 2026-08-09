@@ -19,6 +19,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Division
+ * 
+ */
+export type Division = $Result.DefaultSelection<Prisma.$DivisionPayload>
+/**
+ * Model District
+ * 
+ */
+export type District = $Result.DefaultSelection<Prisma.$DistrictPayload>
+/**
  * Model Specialty
  * 
  */
@@ -331,6 +341,26 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs>;
+
+  /**
+   * `prisma.division`: Exposes CRUD operations for the **Division** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Divisions
+    * const divisions = await prisma.division.findMany()
+    * ```
+    */
+  get division(): Prisma.DivisionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.district`: Exposes CRUD operations for the **District** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Districts
+    * const districts = await prisma.district.findMany()
+    * ```
+    */
+  get district(): Prisma.DistrictDelegate<ExtArgs>;
 
   /**
    * `prisma.specialty`: Exposes CRUD operations for the **Specialty** model.
@@ -893,6 +923,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Division: 'Division',
+    District: 'District',
     Specialty: 'Specialty',
     Patient: 'Patient',
     Doctor: 'Doctor',
@@ -920,7 +952,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "specialty" | "patient" | "doctor" | "doctorSpecialty" | "hospital" | "chamber" | "appointment" | "review" | "notification" | "refreshToken" | "otpCode" | "auditLog"
+      modelProps: "user" | "division" | "district" | "specialty" | "patient" | "doctor" | "doctorSpecialty" | "hospital" | "chamber" | "appointment" | "review" | "notification" | "refreshToken" | "otpCode" | "auditLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -991,6 +1023,146 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Division: {
+        payload: Prisma.$DivisionPayload<ExtArgs>
+        fields: Prisma.DivisionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DivisionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DivisionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DivisionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DivisionPayload>
+          }
+          findFirst: {
+            args: Prisma.DivisionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DivisionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DivisionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DivisionPayload>
+          }
+          findMany: {
+            args: Prisma.DivisionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DivisionPayload>[]
+          }
+          create: {
+            args: Prisma.DivisionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DivisionPayload>
+          }
+          createMany: {
+            args: Prisma.DivisionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DivisionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DivisionPayload>[]
+          }
+          delete: {
+            args: Prisma.DivisionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DivisionPayload>
+          }
+          update: {
+            args: Prisma.DivisionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DivisionPayload>
+          }
+          deleteMany: {
+            args: Prisma.DivisionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DivisionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DivisionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DivisionPayload>
+          }
+          aggregate: {
+            args: Prisma.DivisionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDivision>
+          }
+          groupBy: {
+            args: Prisma.DivisionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DivisionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DivisionCountArgs<ExtArgs>
+            result: $Utils.Optional<DivisionCountAggregateOutputType> | number
+          }
+        }
+      }
+      District: {
+        payload: Prisma.$DistrictPayload<ExtArgs>
+        fields: Prisma.DistrictFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DistrictFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DistrictPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DistrictFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DistrictPayload>
+          }
+          findFirst: {
+            args: Prisma.DistrictFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DistrictPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DistrictFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DistrictPayload>
+          }
+          findMany: {
+            args: Prisma.DistrictFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DistrictPayload>[]
+          }
+          create: {
+            args: Prisma.DistrictCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DistrictPayload>
+          }
+          createMany: {
+            args: Prisma.DistrictCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DistrictCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DistrictPayload>[]
+          }
+          delete: {
+            args: Prisma.DistrictDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DistrictPayload>
+          }
+          update: {
+            args: Prisma.DistrictUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DistrictPayload>
+          }
+          deleteMany: {
+            args: Prisma.DistrictDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DistrictUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DistrictUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DistrictPayload>
+          }
+          aggregate: {
+            args: Prisma.DistrictAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDistrict>
+          }
+          groupBy: {
+            args: Prisma.DistrictGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DistrictGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DistrictCountArgs<ExtArgs>
+            result: $Utils.Optional<DistrictCountAggregateOutputType> | number
           }
         }
       }
@@ -2045,6 +2217,37 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AuditLogWhereInput
+  }
+
+
+  /**
+   * Count Type DivisionCountOutputType
+   */
+
+  export type DivisionCountOutputType = {
+    districts: number
+  }
+
+  export type DivisionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    districts?: boolean | DivisionCountOutputTypeCountDistrictsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DivisionCountOutputType without action
+   */
+  export type DivisionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DivisionCountOutputType
+     */
+    select?: DivisionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DivisionCountOutputType without action
+   */
+  export type DivisionCountOutputTypeCountDistrictsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DistrictWhereInput
   }
 
 
@@ -3472,6 +3675,2019 @@ export namespace Prisma {
 
 
   /**
+   * Model Division
+   */
+
+  export type AggregateDivision = {
+    _count: DivisionCountAggregateOutputType | null
+    _avg: DivisionAvgAggregateOutputType | null
+    _sum: DivisionSumAggregateOutputType | null
+    _min: DivisionMinAggregateOutputType | null
+    _max: DivisionMaxAggregateOutputType | null
+  }
+
+  export type DivisionAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type DivisionSumAggregateOutputType = {
+    id: bigint | null
+  }
+
+  export type DivisionMinAggregateOutputType = {
+    id: bigint | null
+    name: string | null
+    nameBn: string | null
+    slug: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DivisionMaxAggregateOutputType = {
+    id: bigint | null
+    name: string | null
+    nameBn: string | null
+    slug: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DivisionCountAggregateOutputType = {
+    id: number
+    name: number
+    nameBn: number
+    slug: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DivisionAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type DivisionSumAggregateInputType = {
+    id?: true
+  }
+
+  export type DivisionMinAggregateInputType = {
+    id?: true
+    name?: true
+    nameBn?: true
+    slug?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DivisionMaxAggregateInputType = {
+    id?: true
+    name?: true
+    nameBn?: true
+    slug?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DivisionCountAggregateInputType = {
+    id?: true
+    name?: true
+    nameBn?: true
+    slug?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DivisionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Division to aggregate.
+     */
+    where?: DivisionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Divisions to fetch.
+     */
+    orderBy?: DivisionOrderByWithRelationInput | DivisionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DivisionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Divisions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Divisions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Divisions
+    **/
+    _count?: true | DivisionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DivisionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DivisionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DivisionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DivisionMaxAggregateInputType
+  }
+
+  export type GetDivisionAggregateType<T extends DivisionAggregateArgs> = {
+        [P in keyof T & keyof AggregateDivision]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDivision[P]>
+      : GetScalarType<T[P], AggregateDivision[P]>
+  }
+
+
+
+
+  export type DivisionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DivisionWhereInput
+    orderBy?: DivisionOrderByWithAggregationInput | DivisionOrderByWithAggregationInput[]
+    by: DivisionScalarFieldEnum[] | DivisionScalarFieldEnum
+    having?: DivisionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DivisionCountAggregateInputType | true
+    _avg?: DivisionAvgAggregateInputType
+    _sum?: DivisionSumAggregateInputType
+    _min?: DivisionMinAggregateInputType
+    _max?: DivisionMaxAggregateInputType
+  }
+
+  export type DivisionGroupByOutputType = {
+    id: bigint
+    name: string
+    nameBn: string | null
+    slug: string
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DivisionCountAggregateOutputType | null
+    _avg: DivisionAvgAggregateOutputType | null
+    _sum: DivisionSumAggregateOutputType | null
+    _min: DivisionMinAggregateOutputType | null
+    _max: DivisionMaxAggregateOutputType | null
+  }
+
+  type GetDivisionGroupByPayload<T extends DivisionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DivisionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DivisionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DivisionGroupByOutputType[P]>
+            : GetScalarType<T[P], DivisionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DivisionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    nameBn?: boolean
+    slug?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    districts?: boolean | Division$districtsArgs<ExtArgs>
+    _count?: boolean | DivisionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["division"]>
+
+  export type DivisionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    nameBn?: boolean
+    slug?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["division"]>
+
+  export type DivisionSelectScalar = {
+    id?: boolean
+    name?: boolean
+    nameBn?: boolean
+    slug?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DivisionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    districts?: boolean | Division$districtsArgs<ExtArgs>
+    _count?: boolean | DivisionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DivisionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $DivisionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Division"
+    objects: {
+      districts: Prisma.$DistrictPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      name: string
+      nameBn: string | null
+      slug: string
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["division"]>
+    composites: {}
+  }
+
+  type DivisionGetPayload<S extends boolean | null | undefined | DivisionDefaultArgs> = $Result.GetResult<Prisma.$DivisionPayload, S>
+
+  type DivisionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<DivisionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: DivisionCountAggregateInputType | true
+    }
+
+  export interface DivisionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Division'], meta: { name: 'Division' } }
+    /**
+     * Find zero or one Division that matches the filter.
+     * @param {DivisionFindUniqueArgs} args - Arguments to find a Division
+     * @example
+     * // Get one Division
+     * const division = await prisma.division.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DivisionFindUniqueArgs>(args: SelectSubset<T, DivisionFindUniqueArgs<ExtArgs>>): Prisma__DivisionClient<$Result.GetResult<Prisma.$DivisionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Division that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {DivisionFindUniqueOrThrowArgs} args - Arguments to find a Division
+     * @example
+     * // Get one Division
+     * const division = await prisma.division.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DivisionFindUniqueOrThrowArgs>(args: SelectSubset<T, DivisionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DivisionClient<$Result.GetResult<Prisma.$DivisionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Division that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DivisionFindFirstArgs} args - Arguments to find a Division
+     * @example
+     * // Get one Division
+     * const division = await prisma.division.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DivisionFindFirstArgs>(args?: SelectSubset<T, DivisionFindFirstArgs<ExtArgs>>): Prisma__DivisionClient<$Result.GetResult<Prisma.$DivisionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Division that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DivisionFindFirstOrThrowArgs} args - Arguments to find a Division
+     * @example
+     * // Get one Division
+     * const division = await prisma.division.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DivisionFindFirstOrThrowArgs>(args?: SelectSubset<T, DivisionFindFirstOrThrowArgs<ExtArgs>>): Prisma__DivisionClient<$Result.GetResult<Prisma.$DivisionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Divisions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DivisionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Divisions
+     * const divisions = await prisma.division.findMany()
+     * 
+     * // Get first 10 Divisions
+     * const divisions = await prisma.division.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const divisionWithIdOnly = await prisma.division.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DivisionFindManyArgs>(args?: SelectSubset<T, DivisionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DivisionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Division.
+     * @param {DivisionCreateArgs} args - Arguments to create a Division.
+     * @example
+     * // Create one Division
+     * const Division = await prisma.division.create({
+     *   data: {
+     *     // ... data to create a Division
+     *   }
+     * })
+     * 
+     */
+    create<T extends DivisionCreateArgs>(args: SelectSubset<T, DivisionCreateArgs<ExtArgs>>): Prisma__DivisionClient<$Result.GetResult<Prisma.$DivisionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Divisions.
+     * @param {DivisionCreateManyArgs} args - Arguments to create many Divisions.
+     * @example
+     * // Create many Divisions
+     * const division = await prisma.division.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DivisionCreateManyArgs>(args?: SelectSubset<T, DivisionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Divisions and returns the data saved in the database.
+     * @param {DivisionCreateManyAndReturnArgs} args - Arguments to create many Divisions.
+     * @example
+     * // Create many Divisions
+     * const division = await prisma.division.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Divisions and only return the `id`
+     * const divisionWithIdOnly = await prisma.division.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DivisionCreateManyAndReturnArgs>(args?: SelectSubset<T, DivisionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DivisionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Division.
+     * @param {DivisionDeleteArgs} args - Arguments to delete one Division.
+     * @example
+     * // Delete one Division
+     * const Division = await prisma.division.delete({
+     *   where: {
+     *     // ... filter to delete one Division
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DivisionDeleteArgs>(args: SelectSubset<T, DivisionDeleteArgs<ExtArgs>>): Prisma__DivisionClient<$Result.GetResult<Prisma.$DivisionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Division.
+     * @param {DivisionUpdateArgs} args - Arguments to update one Division.
+     * @example
+     * // Update one Division
+     * const division = await prisma.division.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DivisionUpdateArgs>(args: SelectSubset<T, DivisionUpdateArgs<ExtArgs>>): Prisma__DivisionClient<$Result.GetResult<Prisma.$DivisionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Divisions.
+     * @param {DivisionDeleteManyArgs} args - Arguments to filter Divisions to delete.
+     * @example
+     * // Delete a few Divisions
+     * const { count } = await prisma.division.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DivisionDeleteManyArgs>(args?: SelectSubset<T, DivisionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Divisions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DivisionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Divisions
+     * const division = await prisma.division.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DivisionUpdateManyArgs>(args: SelectSubset<T, DivisionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Division.
+     * @param {DivisionUpsertArgs} args - Arguments to update or create a Division.
+     * @example
+     * // Update or create a Division
+     * const division = await prisma.division.upsert({
+     *   create: {
+     *     // ... data to create a Division
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Division we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DivisionUpsertArgs>(args: SelectSubset<T, DivisionUpsertArgs<ExtArgs>>): Prisma__DivisionClient<$Result.GetResult<Prisma.$DivisionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Divisions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DivisionCountArgs} args - Arguments to filter Divisions to count.
+     * @example
+     * // Count the number of Divisions
+     * const count = await prisma.division.count({
+     *   where: {
+     *     // ... the filter for the Divisions we want to count
+     *   }
+     * })
+    **/
+    count<T extends DivisionCountArgs>(
+      args?: Subset<T, DivisionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DivisionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Division.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DivisionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DivisionAggregateArgs>(args: Subset<T, DivisionAggregateArgs>): Prisma.PrismaPromise<GetDivisionAggregateType<T>>
+
+    /**
+     * Group by Division.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DivisionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DivisionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DivisionGroupByArgs['orderBy'] }
+        : { orderBy?: DivisionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DivisionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDivisionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Division model
+   */
+  readonly fields: DivisionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Division.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DivisionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    districts<T extends Division$districtsArgs<ExtArgs> = {}>(args?: Subset<T, Division$districtsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DistrictPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Division model
+   */ 
+  interface DivisionFieldRefs {
+    readonly id: FieldRef<"Division", 'BigInt'>
+    readonly name: FieldRef<"Division", 'String'>
+    readonly nameBn: FieldRef<"Division", 'String'>
+    readonly slug: FieldRef<"Division", 'String'>
+    readonly isActive: FieldRef<"Division", 'Boolean'>
+    readonly createdAt: FieldRef<"Division", 'DateTime'>
+    readonly updatedAt: FieldRef<"Division", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Division findUnique
+   */
+  export type DivisionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Division
+     */
+    select?: DivisionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DivisionInclude<ExtArgs> | null
+    /**
+     * Filter, which Division to fetch.
+     */
+    where: DivisionWhereUniqueInput
+  }
+
+  /**
+   * Division findUniqueOrThrow
+   */
+  export type DivisionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Division
+     */
+    select?: DivisionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DivisionInclude<ExtArgs> | null
+    /**
+     * Filter, which Division to fetch.
+     */
+    where: DivisionWhereUniqueInput
+  }
+
+  /**
+   * Division findFirst
+   */
+  export type DivisionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Division
+     */
+    select?: DivisionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DivisionInclude<ExtArgs> | null
+    /**
+     * Filter, which Division to fetch.
+     */
+    where?: DivisionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Divisions to fetch.
+     */
+    orderBy?: DivisionOrderByWithRelationInput | DivisionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Divisions.
+     */
+    cursor?: DivisionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Divisions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Divisions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Divisions.
+     */
+    distinct?: DivisionScalarFieldEnum | DivisionScalarFieldEnum[]
+  }
+
+  /**
+   * Division findFirstOrThrow
+   */
+  export type DivisionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Division
+     */
+    select?: DivisionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DivisionInclude<ExtArgs> | null
+    /**
+     * Filter, which Division to fetch.
+     */
+    where?: DivisionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Divisions to fetch.
+     */
+    orderBy?: DivisionOrderByWithRelationInput | DivisionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Divisions.
+     */
+    cursor?: DivisionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Divisions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Divisions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Divisions.
+     */
+    distinct?: DivisionScalarFieldEnum | DivisionScalarFieldEnum[]
+  }
+
+  /**
+   * Division findMany
+   */
+  export type DivisionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Division
+     */
+    select?: DivisionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DivisionInclude<ExtArgs> | null
+    /**
+     * Filter, which Divisions to fetch.
+     */
+    where?: DivisionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Divisions to fetch.
+     */
+    orderBy?: DivisionOrderByWithRelationInput | DivisionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Divisions.
+     */
+    cursor?: DivisionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Divisions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Divisions.
+     */
+    skip?: number
+    distinct?: DivisionScalarFieldEnum | DivisionScalarFieldEnum[]
+  }
+
+  /**
+   * Division create
+   */
+  export type DivisionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Division
+     */
+    select?: DivisionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DivisionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Division.
+     */
+    data: XOR<DivisionCreateInput, DivisionUncheckedCreateInput>
+  }
+
+  /**
+   * Division createMany
+   */
+  export type DivisionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Divisions.
+     */
+    data: DivisionCreateManyInput | DivisionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Division createManyAndReturn
+   */
+  export type DivisionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Division
+     */
+    select?: DivisionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Divisions.
+     */
+    data: DivisionCreateManyInput | DivisionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Division update
+   */
+  export type DivisionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Division
+     */
+    select?: DivisionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DivisionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Division.
+     */
+    data: XOR<DivisionUpdateInput, DivisionUncheckedUpdateInput>
+    /**
+     * Choose, which Division to update.
+     */
+    where: DivisionWhereUniqueInput
+  }
+
+  /**
+   * Division updateMany
+   */
+  export type DivisionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Divisions.
+     */
+    data: XOR<DivisionUpdateManyMutationInput, DivisionUncheckedUpdateManyInput>
+    /**
+     * Filter which Divisions to update
+     */
+    where?: DivisionWhereInput
+  }
+
+  /**
+   * Division upsert
+   */
+  export type DivisionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Division
+     */
+    select?: DivisionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DivisionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Division to update in case it exists.
+     */
+    where: DivisionWhereUniqueInput
+    /**
+     * In case the Division found by the `where` argument doesn't exist, create a new Division with this data.
+     */
+    create: XOR<DivisionCreateInput, DivisionUncheckedCreateInput>
+    /**
+     * In case the Division was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DivisionUpdateInput, DivisionUncheckedUpdateInput>
+  }
+
+  /**
+   * Division delete
+   */
+  export type DivisionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Division
+     */
+    select?: DivisionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DivisionInclude<ExtArgs> | null
+    /**
+     * Filter which Division to delete.
+     */
+    where: DivisionWhereUniqueInput
+  }
+
+  /**
+   * Division deleteMany
+   */
+  export type DivisionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Divisions to delete
+     */
+    where?: DivisionWhereInput
+  }
+
+  /**
+   * Division.districts
+   */
+  export type Division$districtsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the District
+     */
+    select?: DistrictSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DistrictInclude<ExtArgs> | null
+    where?: DistrictWhereInput
+    orderBy?: DistrictOrderByWithRelationInput | DistrictOrderByWithRelationInput[]
+    cursor?: DistrictWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DistrictScalarFieldEnum | DistrictScalarFieldEnum[]
+  }
+
+  /**
+   * Division without action
+   */
+  export type DivisionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Division
+     */
+    select?: DivisionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DivisionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model District
+   */
+
+  export type AggregateDistrict = {
+    _count: DistrictCountAggregateOutputType | null
+    _avg: DistrictAvgAggregateOutputType | null
+    _sum: DistrictSumAggregateOutputType | null
+    _min: DistrictMinAggregateOutputType | null
+    _max: DistrictMaxAggregateOutputType | null
+  }
+
+  export type DistrictAvgAggregateOutputType = {
+    id: number | null
+    divisionId: number | null
+  }
+
+  export type DistrictSumAggregateOutputType = {
+    id: bigint | null
+    divisionId: bigint | null
+  }
+
+  export type DistrictMinAggregateOutputType = {
+    id: bigint | null
+    name: string | null
+    nameBn: string | null
+    slug: string | null
+    divisionId: bigint | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DistrictMaxAggregateOutputType = {
+    id: bigint | null
+    name: string | null
+    nameBn: string | null
+    slug: string | null
+    divisionId: bigint | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DistrictCountAggregateOutputType = {
+    id: number
+    name: number
+    nameBn: number
+    slug: number
+    divisionId: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DistrictAvgAggregateInputType = {
+    id?: true
+    divisionId?: true
+  }
+
+  export type DistrictSumAggregateInputType = {
+    id?: true
+    divisionId?: true
+  }
+
+  export type DistrictMinAggregateInputType = {
+    id?: true
+    name?: true
+    nameBn?: true
+    slug?: true
+    divisionId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DistrictMaxAggregateInputType = {
+    id?: true
+    name?: true
+    nameBn?: true
+    slug?: true
+    divisionId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DistrictCountAggregateInputType = {
+    id?: true
+    name?: true
+    nameBn?: true
+    slug?: true
+    divisionId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DistrictAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which District to aggregate.
+     */
+    where?: DistrictWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Districts to fetch.
+     */
+    orderBy?: DistrictOrderByWithRelationInput | DistrictOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DistrictWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Districts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Districts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Districts
+    **/
+    _count?: true | DistrictCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DistrictAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DistrictSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DistrictMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DistrictMaxAggregateInputType
+  }
+
+  export type GetDistrictAggregateType<T extends DistrictAggregateArgs> = {
+        [P in keyof T & keyof AggregateDistrict]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDistrict[P]>
+      : GetScalarType<T[P], AggregateDistrict[P]>
+  }
+
+
+
+
+  export type DistrictGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DistrictWhereInput
+    orderBy?: DistrictOrderByWithAggregationInput | DistrictOrderByWithAggregationInput[]
+    by: DistrictScalarFieldEnum[] | DistrictScalarFieldEnum
+    having?: DistrictScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DistrictCountAggregateInputType | true
+    _avg?: DistrictAvgAggregateInputType
+    _sum?: DistrictSumAggregateInputType
+    _min?: DistrictMinAggregateInputType
+    _max?: DistrictMaxAggregateInputType
+  }
+
+  export type DistrictGroupByOutputType = {
+    id: bigint
+    name: string
+    nameBn: string | null
+    slug: string
+    divisionId: bigint
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DistrictCountAggregateOutputType | null
+    _avg: DistrictAvgAggregateOutputType | null
+    _sum: DistrictSumAggregateOutputType | null
+    _min: DistrictMinAggregateOutputType | null
+    _max: DistrictMaxAggregateOutputType | null
+  }
+
+  type GetDistrictGroupByPayload<T extends DistrictGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DistrictGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DistrictGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DistrictGroupByOutputType[P]>
+            : GetScalarType<T[P], DistrictGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DistrictSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    nameBn?: boolean
+    slug?: boolean
+    divisionId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    division?: boolean | DivisionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["district"]>
+
+  export type DistrictSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    nameBn?: boolean
+    slug?: boolean
+    divisionId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    division?: boolean | DivisionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["district"]>
+
+  export type DistrictSelectScalar = {
+    id?: boolean
+    name?: boolean
+    nameBn?: boolean
+    slug?: boolean
+    divisionId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DistrictInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    division?: boolean | DivisionDefaultArgs<ExtArgs>
+  }
+  export type DistrictIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    division?: boolean | DivisionDefaultArgs<ExtArgs>
+  }
+
+  export type $DistrictPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "District"
+    objects: {
+      division: Prisma.$DivisionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      name: string
+      nameBn: string | null
+      slug: string
+      divisionId: bigint
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["district"]>
+    composites: {}
+  }
+
+  type DistrictGetPayload<S extends boolean | null | undefined | DistrictDefaultArgs> = $Result.GetResult<Prisma.$DistrictPayload, S>
+
+  type DistrictCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<DistrictFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: DistrictCountAggregateInputType | true
+    }
+
+  export interface DistrictDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['District'], meta: { name: 'District' } }
+    /**
+     * Find zero or one District that matches the filter.
+     * @param {DistrictFindUniqueArgs} args - Arguments to find a District
+     * @example
+     * // Get one District
+     * const district = await prisma.district.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DistrictFindUniqueArgs>(args: SelectSubset<T, DistrictFindUniqueArgs<ExtArgs>>): Prisma__DistrictClient<$Result.GetResult<Prisma.$DistrictPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one District that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {DistrictFindUniqueOrThrowArgs} args - Arguments to find a District
+     * @example
+     * // Get one District
+     * const district = await prisma.district.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DistrictFindUniqueOrThrowArgs>(args: SelectSubset<T, DistrictFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DistrictClient<$Result.GetResult<Prisma.$DistrictPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first District that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DistrictFindFirstArgs} args - Arguments to find a District
+     * @example
+     * // Get one District
+     * const district = await prisma.district.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DistrictFindFirstArgs>(args?: SelectSubset<T, DistrictFindFirstArgs<ExtArgs>>): Prisma__DistrictClient<$Result.GetResult<Prisma.$DistrictPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first District that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DistrictFindFirstOrThrowArgs} args - Arguments to find a District
+     * @example
+     * // Get one District
+     * const district = await prisma.district.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DistrictFindFirstOrThrowArgs>(args?: SelectSubset<T, DistrictFindFirstOrThrowArgs<ExtArgs>>): Prisma__DistrictClient<$Result.GetResult<Prisma.$DistrictPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Districts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DistrictFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Districts
+     * const districts = await prisma.district.findMany()
+     * 
+     * // Get first 10 Districts
+     * const districts = await prisma.district.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const districtWithIdOnly = await prisma.district.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DistrictFindManyArgs>(args?: SelectSubset<T, DistrictFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DistrictPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a District.
+     * @param {DistrictCreateArgs} args - Arguments to create a District.
+     * @example
+     * // Create one District
+     * const District = await prisma.district.create({
+     *   data: {
+     *     // ... data to create a District
+     *   }
+     * })
+     * 
+     */
+    create<T extends DistrictCreateArgs>(args: SelectSubset<T, DistrictCreateArgs<ExtArgs>>): Prisma__DistrictClient<$Result.GetResult<Prisma.$DistrictPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Districts.
+     * @param {DistrictCreateManyArgs} args - Arguments to create many Districts.
+     * @example
+     * // Create many Districts
+     * const district = await prisma.district.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DistrictCreateManyArgs>(args?: SelectSubset<T, DistrictCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Districts and returns the data saved in the database.
+     * @param {DistrictCreateManyAndReturnArgs} args - Arguments to create many Districts.
+     * @example
+     * // Create many Districts
+     * const district = await prisma.district.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Districts and only return the `id`
+     * const districtWithIdOnly = await prisma.district.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DistrictCreateManyAndReturnArgs>(args?: SelectSubset<T, DistrictCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DistrictPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a District.
+     * @param {DistrictDeleteArgs} args - Arguments to delete one District.
+     * @example
+     * // Delete one District
+     * const District = await prisma.district.delete({
+     *   where: {
+     *     // ... filter to delete one District
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DistrictDeleteArgs>(args: SelectSubset<T, DistrictDeleteArgs<ExtArgs>>): Prisma__DistrictClient<$Result.GetResult<Prisma.$DistrictPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one District.
+     * @param {DistrictUpdateArgs} args - Arguments to update one District.
+     * @example
+     * // Update one District
+     * const district = await prisma.district.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DistrictUpdateArgs>(args: SelectSubset<T, DistrictUpdateArgs<ExtArgs>>): Prisma__DistrictClient<$Result.GetResult<Prisma.$DistrictPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Districts.
+     * @param {DistrictDeleteManyArgs} args - Arguments to filter Districts to delete.
+     * @example
+     * // Delete a few Districts
+     * const { count } = await prisma.district.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DistrictDeleteManyArgs>(args?: SelectSubset<T, DistrictDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Districts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DistrictUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Districts
+     * const district = await prisma.district.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DistrictUpdateManyArgs>(args: SelectSubset<T, DistrictUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one District.
+     * @param {DistrictUpsertArgs} args - Arguments to update or create a District.
+     * @example
+     * // Update or create a District
+     * const district = await prisma.district.upsert({
+     *   create: {
+     *     // ... data to create a District
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the District we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DistrictUpsertArgs>(args: SelectSubset<T, DistrictUpsertArgs<ExtArgs>>): Prisma__DistrictClient<$Result.GetResult<Prisma.$DistrictPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Districts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DistrictCountArgs} args - Arguments to filter Districts to count.
+     * @example
+     * // Count the number of Districts
+     * const count = await prisma.district.count({
+     *   where: {
+     *     // ... the filter for the Districts we want to count
+     *   }
+     * })
+    **/
+    count<T extends DistrictCountArgs>(
+      args?: Subset<T, DistrictCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DistrictCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a District.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DistrictAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DistrictAggregateArgs>(args: Subset<T, DistrictAggregateArgs>): Prisma.PrismaPromise<GetDistrictAggregateType<T>>
+
+    /**
+     * Group by District.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DistrictGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DistrictGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DistrictGroupByArgs['orderBy'] }
+        : { orderBy?: DistrictGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DistrictGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDistrictGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the District model
+   */
+  readonly fields: DistrictFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for District.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DistrictClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    division<T extends DivisionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DivisionDefaultArgs<ExtArgs>>): Prisma__DivisionClient<$Result.GetResult<Prisma.$DivisionPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the District model
+   */ 
+  interface DistrictFieldRefs {
+    readonly id: FieldRef<"District", 'BigInt'>
+    readonly name: FieldRef<"District", 'String'>
+    readonly nameBn: FieldRef<"District", 'String'>
+    readonly slug: FieldRef<"District", 'String'>
+    readonly divisionId: FieldRef<"District", 'BigInt'>
+    readonly isActive: FieldRef<"District", 'Boolean'>
+    readonly createdAt: FieldRef<"District", 'DateTime'>
+    readonly updatedAt: FieldRef<"District", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * District findUnique
+   */
+  export type DistrictFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the District
+     */
+    select?: DistrictSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DistrictInclude<ExtArgs> | null
+    /**
+     * Filter, which District to fetch.
+     */
+    where: DistrictWhereUniqueInput
+  }
+
+  /**
+   * District findUniqueOrThrow
+   */
+  export type DistrictFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the District
+     */
+    select?: DistrictSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DistrictInclude<ExtArgs> | null
+    /**
+     * Filter, which District to fetch.
+     */
+    where: DistrictWhereUniqueInput
+  }
+
+  /**
+   * District findFirst
+   */
+  export type DistrictFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the District
+     */
+    select?: DistrictSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DistrictInclude<ExtArgs> | null
+    /**
+     * Filter, which District to fetch.
+     */
+    where?: DistrictWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Districts to fetch.
+     */
+    orderBy?: DistrictOrderByWithRelationInput | DistrictOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Districts.
+     */
+    cursor?: DistrictWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Districts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Districts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Districts.
+     */
+    distinct?: DistrictScalarFieldEnum | DistrictScalarFieldEnum[]
+  }
+
+  /**
+   * District findFirstOrThrow
+   */
+  export type DistrictFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the District
+     */
+    select?: DistrictSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DistrictInclude<ExtArgs> | null
+    /**
+     * Filter, which District to fetch.
+     */
+    where?: DistrictWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Districts to fetch.
+     */
+    orderBy?: DistrictOrderByWithRelationInput | DistrictOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Districts.
+     */
+    cursor?: DistrictWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Districts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Districts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Districts.
+     */
+    distinct?: DistrictScalarFieldEnum | DistrictScalarFieldEnum[]
+  }
+
+  /**
+   * District findMany
+   */
+  export type DistrictFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the District
+     */
+    select?: DistrictSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DistrictInclude<ExtArgs> | null
+    /**
+     * Filter, which Districts to fetch.
+     */
+    where?: DistrictWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Districts to fetch.
+     */
+    orderBy?: DistrictOrderByWithRelationInput | DistrictOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Districts.
+     */
+    cursor?: DistrictWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Districts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Districts.
+     */
+    skip?: number
+    distinct?: DistrictScalarFieldEnum | DistrictScalarFieldEnum[]
+  }
+
+  /**
+   * District create
+   */
+  export type DistrictCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the District
+     */
+    select?: DistrictSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DistrictInclude<ExtArgs> | null
+    /**
+     * The data needed to create a District.
+     */
+    data: XOR<DistrictCreateInput, DistrictUncheckedCreateInput>
+  }
+
+  /**
+   * District createMany
+   */
+  export type DistrictCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Districts.
+     */
+    data: DistrictCreateManyInput | DistrictCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * District createManyAndReturn
+   */
+  export type DistrictCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the District
+     */
+    select?: DistrictSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Districts.
+     */
+    data: DistrictCreateManyInput | DistrictCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DistrictIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * District update
+   */
+  export type DistrictUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the District
+     */
+    select?: DistrictSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DistrictInclude<ExtArgs> | null
+    /**
+     * The data needed to update a District.
+     */
+    data: XOR<DistrictUpdateInput, DistrictUncheckedUpdateInput>
+    /**
+     * Choose, which District to update.
+     */
+    where: DistrictWhereUniqueInput
+  }
+
+  /**
+   * District updateMany
+   */
+  export type DistrictUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Districts.
+     */
+    data: XOR<DistrictUpdateManyMutationInput, DistrictUncheckedUpdateManyInput>
+    /**
+     * Filter which Districts to update
+     */
+    where?: DistrictWhereInput
+  }
+
+  /**
+   * District upsert
+   */
+  export type DistrictUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the District
+     */
+    select?: DistrictSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DistrictInclude<ExtArgs> | null
+    /**
+     * The filter to search for the District to update in case it exists.
+     */
+    where: DistrictWhereUniqueInput
+    /**
+     * In case the District found by the `where` argument doesn't exist, create a new District with this data.
+     */
+    create: XOR<DistrictCreateInput, DistrictUncheckedCreateInput>
+    /**
+     * In case the District was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DistrictUpdateInput, DistrictUncheckedUpdateInput>
+  }
+
+  /**
+   * District delete
+   */
+  export type DistrictDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the District
+     */
+    select?: DistrictSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DistrictInclude<ExtArgs> | null
+    /**
+     * Filter which District to delete.
+     */
+    where: DistrictWhereUniqueInput
+  }
+
+  /**
+   * District deleteMany
+   */
+  export type DistrictDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Districts to delete
+     */
+    where?: DistrictWhereInput
+  }
+
+  /**
+   * District without action
+   */
+  export type DistrictDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the District
+     */
+    select?: DistrictSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DistrictInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Specialty
    */
 
@@ -3486,11 +5702,13 @@ export namespace Prisma {
   export type SpecialtyAvgAggregateOutputType = {
     id: number | null
     parentId: number | null
+    order: number | null
   }
 
   export type SpecialtySumAggregateOutputType = {
     id: bigint | null
     parentId: bigint | null
+    order: number | null
   }
 
   export type SpecialtyMinAggregateOutputType = {
@@ -3500,8 +5718,11 @@ export namespace Prisma {
     slug: string | null
     icon: string | null
     parentId: bigint | null
+    isActive: boolean | null
+    order: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type SpecialtyMaxAggregateOutputType = {
@@ -3511,8 +5732,11 @@ export namespace Prisma {
     slug: string | null
     icon: string | null
     parentId: bigint | null
+    isActive: boolean | null
+    order: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type SpecialtyCountAggregateOutputType = {
@@ -3522,8 +5746,11 @@ export namespace Prisma {
     slug: number
     icon: number
     parentId: number
+    isActive: number
+    order: number
     createdAt: number
     updatedAt: number
+    deletedAt: number
     _all: number
   }
 
@@ -3531,11 +5758,13 @@ export namespace Prisma {
   export type SpecialtyAvgAggregateInputType = {
     id?: true
     parentId?: true
+    order?: true
   }
 
   export type SpecialtySumAggregateInputType = {
     id?: true
     parentId?: true
+    order?: true
   }
 
   export type SpecialtyMinAggregateInputType = {
@@ -3545,8 +5774,11 @@ export namespace Prisma {
     slug?: true
     icon?: true
     parentId?: true
+    isActive?: true
+    order?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
   }
 
   export type SpecialtyMaxAggregateInputType = {
@@ -3556,8 +5788,11 @@ export namespace Prisma {
     slug?: true
     icon?: true
     parentId?: true
+    isActive?: true
+    order?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
   }
 
   export type SpecialtyCountAggregateInputType = {
@@ -3567,8 +5802,11 @@ export namespace Prisma {
     slug?: true
     icon?: true
     parentId?: true
+    isActive?: true
+    order?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
     _all?: true
   }
 
@@ -3665,8 +5903,11 @@ export namespace Prisma {
     slug: string
     icon: string | null
     parentId: bigint | null
+    isActive: boolean
+    order: number
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
     _count: SpecialtyCountAggregateOutputType | null
     _avg: SpecialtyAvgAggregateOutputType | null
     _sum: SpecialtySumAggregateOutputType | null
@@ -3695,8 +5936,11 @@ export namespace Prisma {
     slug?: boolean
     icon?: boolean
     parentId?: boolean
+    isActive?: boolean
+    order?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     parent?: boolean | Specialty$parentArgs<ExtArgs>
     subSpecialties?: boolean | Specialty$subSpecialtiesArgs<ExtArgs>
     doctors?: boolean | Specialty$doctorsArgs<ExtArgs>
@@ -3710,8 +5954,11 @@ export namespace Prisma {
     slug?: boolean
     icon?: boolean
     parentId?: boolean
+    isActive?: boolean
+    order?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     parent?: boolean | Specialty$parentArgs<ExtArgs>
   }, ExtArgs["result"]["specialty"]>
 
@@ -3722,8 +5969,11 @@ export namespace Prisma {
     slug?: boolean
     icon?: boolean
     parentId?: boolean
+    isActive?: boolean
+    order?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
   }
 
   export type SpecialtyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3750,8 +6000,11 @@ export namespace Prisma {
       slug: string
       icon: string | null
       parentId: bigint | null
+      isActive: boolean
+      order: number
       createdAt: Date
       updatedAt: Date
+      deletedAt: Date | null
     }, ExtArgs["result"]["specialty"]>
     composites: {}
   }
@@ -4154,8 +6407,11 @@ export namespace Prisma {
     readonly slug: FieldRef<"Specialty", 'String'>
     readonly icon: FieldRef<"Specialty", 'String'>
     readonly parentId: FieldRef<"Specialty", 'BigInt'>
+    readonly isActive: FieldRef<"Specialty", 'Boolean'>
+    readonly order: FieldRef<"Specialty", 'Int'>
     readonly createdAt: FieldRef<"Specialty", 'DateTime'>
     readonly updatedAt: FieldRef<"Specialty", 'DateTime'>
+    readonly deletedAt: FieldRef<"Specialty", 'DateTime'>
   }
     
 
@@ -5665,6 +7921,7 @@ export namespace Prisma {
   export type DoctorMinAggregateOutputType = {
     id: bigint | null
     userId: bigint | null
+    nameBn: string | null
     qualification: string | null
     experienceYears: number | null
     consultationFee: Decimal | null
@@ -5681,6 +7938,7 @@ export namespace Prisma {
   export type DoctorMaxAggregateOutputType = {
     id: bigint | null
     userId: bigint | null
+    nameBn: string | null
     qualification: string | null
     experienceYears: number | null
     consultationFee: Decimal | null
@@ -5697,6 +7955,7 @@ export namespace Prisma {
   export type DoctorCountAggregateOutputType = {
     id: number
     userId: number
+    nameBn: number
     qualification: number
     experienceYears: number
     consultationFee: number
@@ -5729,6 +7988,7 @@ export namespace Prisma {
   export type DoctorMinAggregateInputType = {
     id?: true
     userId?: true
+    nameBn?: true
     qualification?: true
     experienceYears?: true
     consultationFee?: true
@@ -5745,6 +8005,7 @@ export namespace Prisma {
   export type DoctorMaxAggregateInputType = {
     id?: true
     userId?: true
+    nameBn?: true
     qualification?: true
     experienceYears?: true
     consultationFee?: true
@@ -5761,6 +8022,7 @@ export namespace Prisma {
   export type DoctorCountAggregateInputType = {
     id?: true
     userId?: true
+    nameBn?: true
     qualification?: true
     experienceYears?: true
     consultationFee?: true
@@ -5864,6 +8126,7 @@ export namespace Prisma {
   export type DoctorGroupByOutputType = {
     id: bigint
     userId: bigint
+    nameBn: string | null
     qualification: string | null
     experienceYears: number
     consultationFee: Decimal
@@ -5899,6 +8162,7 @@ export namespace Prisma {
   export type DoctorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    nameBn?: boolean
     qualification?: boolean
     experienceYears?: boolean
     consultationFee?: boolean
@@ -5921,6 +8185,7 @@ export namespace Prisma {
   export type DoctorSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    nameBn?: boolean
     qualification?: boolean
     experienceYears?: boolean
     consultationFee?: boolean
@@ -5938,6 +8203,7 @@ export namespace Prisma {
   export type DoctorSelectScalar = {
     id?: boolean
     userId?: boolean
+    nameBn?: boolean
     qualification?: boolean
     experienceYears?: boolean
     consultationFee?: boolean
@@ -5975,6 +8241,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: bigint
       userId: bigint
+      nameBn: string | null
       qualification: string | null
       experienceYears: number
       consultationFee: Prisma.Decimal
@@ -6386,6 +8653,7 @@ export namespace Prisma {
   interface DoctorFieldRefs {
     readonly id: FieldRef<"Doctor", 'BigInt'>
     readonly userId: FieldRef<"Doctor", 'BigInt'>
+    readonly nameBn: FieldRef<"Doctor", 'String'>
     readonly qualification: FieldRef<"Doctor", 'String'>
     readonly experienceYears: FieldRef<"Doctor", 'Int'>
     readonly consultationFee: FieldRef<"Doctor", 'Decimal'>
@@ -7789,6 +10057,7 @@ export namespace Prisma {
   export type HospitalMinAggregateOutputType = {
     id: bigint | null
     name: string | null
+    nameBn: string | null
     slug: string | null
     address: string | null
     city: string | null
@@ -7808,6 +10077,7 @@ export namespace Prisma {
   export type HospitalMaxAggregateOutputType = {
     id: bigint | null
     name: string | null
+    nameBn: string | null
     slug: string | null
     address: string | null
     city: string | null
@@ -7827,6 +10097,7 @@ export namespace Prisma {
   export type HospitalCountAggregateOutputType = {
     id: number
     name: number
+    nameBn: number
     slug: number
     address: number
     city: number
@@ -7860,6 +10131,7 @@ export namespace Prisma {
   export type HospitalMinAggregateInputType = {
     id?: true
     name?: true
+    nameBn?: true
     slug?: true
     address?: true
     city?: true
@@ -7879,6 +10151,7 @@ export namespace Prisma {
   export type HospitalMaxAggregateInputType = {
     id?: true
     name?: true
+    nameBn?: true
     slug?: true
     address?: true
     city?: true
@@ -7898,6 +10171,7 @@ export namespace Prisma {
   export type HospitalCountAggregateInputType = {
     id?: true
     name?: true
+    nameBn?: true
     slug?: true
     address?: true
     city?: true
@@ -8004,6 +10278,7 @@ export namespace Prisma {
   export type HospitalGroupByOutputType = {
     id: bigint
     name: string
+    nameBn: string | null
     slug: string
     address: string
     city: string | null
@@ -8042,6 +10317,7 @@ export namespace Prisma {
   export type HospitalSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    nameBn?: boolean
     slug?: boolean
     address?: boolean
     city?: boolean
@@ -8063,6 +10339,7 @@ export namespace Prisma {
   export type HospitalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    nameBn?: boolean
     slug?: boolean
     address?: boolean
     city?: boolean
@@ -8082,6 +10359,7 @@ export namespace Prisma {
   export type HospitalSelectScalar = {
     id?: boolean
     name?: boolean
+    nameBn?: boolean
     slug?: boolean
     address?: boolean
     city?: boolean
@@ -8112,6 +10390,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: bigint
       name: string
+      nameBn: string | null
       slug: string
       address: string
       city: string | null
@@ -8522,6 +10801,7 @@ export namespace Prisma {
   interface HospitalFieldRefs {
     readonly id: FieldRef<"Hospital", 'BigInt'>
     readonly name: FieldRef<"Hospital", 'String'>
+    readonly nameBn: FieldRef<"Hospital", 'String'>
     readonly slug: FieldRef<"Hospital", 'String'>
     readonly address: FieldRef<"Hospital", 'String'>
     readonly city: FieldRef<"Hospital", 'String'>
@@ -9134,7 +11414,7 @@ export namespace Prisma {
   export type ChamberGroupByOutputType = {
     id: bigint
     doctorId: bigint
-    hospitalId: bigint
+    hospitalId: bigint | null
     chamberName: string
     address: string
     city: string | null
@@ -9187,7 +11467,7 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     doctor?: boolean | DoctorDefaultArgs<ExtArgs>
-    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    hospital?: boolean | Chamber$hospitalArgs<ExtArgs>
     appointments?: boolean | Chamber$appointmentsArgs<ExtArgs>
     _count?: boolean | ChamberCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["chamber"]>
@@ -9210,7 +11490,7 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     doctor?: boolean | DoctorDefaultArgs<ExtArgs>
-    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    hospital?: boolean | Chamber$hospitalArgs<ExtArgs>
   }, ExtArgs["result"]["chamber"]>
 
   export type ChamberSelectScalar = {
@@ -9234,26 +11514,26 @@ export namespace Prisma {
 
   export type ChamberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     doctor?: boolean | DoctorDefaultArgs<ExtArgs>
-    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    hospital?: boolean | Chamber$hospitalArgs<ExtArgs>
     appointments?: boolean | Chamber$appointmentsArgs<ExtArgs>
     _count?: boolean | ChamberCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ChamberIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     doctor?: boolean | DoctorDefaultArgs<ExtArgs>
-    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    hospital?: boolean | Chamber$hospitalArgs<ExtArgs>
   }
 
   export type $ChamberPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Chamber"
     objects: {
       doctor: Prisma.$DoctorPayload<ExtArgs>
-      hospital: Prisma.$HospitalPayload<ExtArgs>
+      hospital: Prisma.$HospitalPayload<ExtArgs> | null
       appointments: Prisma.$AppointmentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: bigint
       doctorId: bigint
-      hospitalId: bigint
+      hospitalId: bigint | null
       chamberName: string
       address: string
       city: string | null
@@ -9632,7 +11912,7 @@ export namespace Prisma {
   export interface Prisma__ChamberClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     doctor<T extends DoctorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DoctorDefaultArgs<ExtArgs>>): Prisma__DoctorClient<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    hospital<T extends Chamber$hospitalArgs<ExtArgs> = {}>(args?: Subset<T, Chamber$hospitalArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     appointments<T extends Chamber$appointmentsArgs<ExtArgs> = {}>(args?: Subset<T, Chamber$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -9994,6 +12274,21 @@ export namespace Prisma {
      * Filter which Chambers to delete
      */
     where?: ChamberWhereInput
+  }
+
+  /**
+   * Chamber.hospital
+   */
+  export type Chamber$hospitalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hospital
+     */
+    select?: HospitalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalInclude<ExtArgs> | null
+    where?: HospitalWhereInput
   }
 
   /**
@@ -16323,6 +18618,33 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const DivisionScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    nameBn: 'nameBn',
+    slug: 'slug',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DivisionScalarFieldEnum = (typeof DivisionScalarFieldEnum)[keyof typeof DivisionScalarFieldEnum]
+
+
+  export const DistrictScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    nameBn: 'nameBn',
+    slug: 'slug',
+    divisionId: 'divisionId',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DistrictScalarFieldEnum = (typeof DistrictScalarFieldEnum)[keyof typeof DistrictScalarFieldEnum]
+
+
   export const SpecialtyScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -16330,8 +18652,11 @@ export namespace Prisma {
     slug: 'slug',
     icon: 'icon',
     parentId: 'parentId',
+    isActive: 'isActive',
+    order: 'order',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
   };
 
   export type SpecialtyScalarFieldEnum = (typeof SpecialtyScalarFieldEnum)[keyof typeof SpecialtyScalarFieldEnum]
@@ -16357,6 +18682,7 @@ export namespace Prisma {
   export const DoctorScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
+    nameBn: 'nameBn',
     qualification: 'qualification',
     experienceYears: 'experienceYears',
     consultationFee: 'consultationFee',
@@ -16385,6 +18711,7 @@ export namespace Prisma {
   export const HospitalScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    nameBn: 'nameBn',
     slug: 'slug',
     address: 'address',
     city: 'city',
@@ -16630,6 +18957,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Gender'
    */
   export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
@@ -16654,20 +18995,6 @@ export namespace Prisma {
    * Reference to a field of type 'BloodGroup[]'
    */
   export type ListEnumBloodGroupFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BloodGroup[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -16891,6 +19218,146 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   }
 
+  export type DivisionWhereInput = {
+    AND?: DivisionWhereInput | DivisionWhereInput[]
+    OR?: DivisionWhereInput[]
+    NOT?: DivisionWhereInput | DivisionWhereInput[]
+    id?: BigIntFilter<"Division"> | bigint | number
+    name?: StringFilter<"Division"> | string
+    nameBn?: StringNullableFilter<"Division"> | string | null
+    slug?: StringFilter<"Division"> | string
+    isActive?: BoolFilter<"Division"> | boolean
+    createdAt?: DateTimeFilter<"Division"> | Date | string
+    updatedAt?: DateTimeFilter<"Division"> | Date | string
+    districts?: DistrictListRelationFilter
+  }
+
+  export type DivisionOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameBn?: SortOrderInput | SortOrder
+    slug?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    districts?: DistrictOrderByRelationAggregateInput
+  }
+
+  export type DivisionWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    name?: string
+    slug?: string
+    AND?: DivisionWhereInput | DivisionWhereInput[]
+    OR?: DivisionWhereInput[]
+    NOT?: DivisionWhereInput | DivisionWhereInput[]
+    nameBn?: StringNullableFilter<"Division"> | string | null
+    isActive?: BoolFilter<"Division"> | boolean
+    createdAt?: DateTimeFilter<"Division"> | Date | string
+    updatedAt?: DateTimeFilter<"Division"> | Date | string
+    districts?: DistrictListRelationFilter
+  }, "id" | "name" | "slug">
+
+  export type DivisionOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameBn?: SortOrderInput | SortOrder
+    slug?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DivisionCountOrderByAggregateInput
+    _avg?: DivisionAvgOrderByAggregateInput
+    _max?: DivisionMaxOrderByAggregateInput
+    _min?: DivisionMinOrderByAggregateInput
+    _sum?: DivisionSumOrderByAggregateInput
+  }
+
+  export type DivisionScalarWhereWithAggregatesInput = {
+    AND?: DivisionScalarWhereWithAggregatesInput | DivisionScalarWhereWithAggregatesInput[]
+    OR?: DivisionScalarWhereWithAggregatesInput[]
+    NOT?: DivisionScalarWhereWithAggregatesInput | DivisionScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"Division"> | bigint | number
+    name?: StringWithAggregatesFilter<"Division"> | string
+    nameBn?: StringNullableWithAggregatesFilter<"Division"> | string | null
+    slug?: StringWithAggregatesFilter<"Division"> | string
+    isActive?: BoolWithAggregatesFilter<"Division"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Division"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Division"> | Date | string
+  }
+
+  export type DistrictWhereInput = {
+    AND?: DistrictWhereInput | DistrictWhereInput[]
+    OR?: DistrictWhereInput[]
+    NOT?: DistrictWhereInput | DistrictWhereInput[]
+    id?: BigIntFilter<"District"> | bigint | number
+    name?: StringFilter<"District"> | string
+    nameBn?: StringNullableFilter<"District"> | string | null
+    slug?: StringFilter<"District"> | string
+    divisionId?: BigIntFilter<"District"> | bigint | number
+    isActive?: BoolFilter<"District"> | boolean
+    createdAt?: DateTimeFilter<"District"> | Date | string
+    updatedAt?: DateTimeFilter<"District"> | Date | string
+    division?: XOR<DivisionRelationFilter, DivisionWhereInput>
+  }
+
+  export type DistrictOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameBn?: SortOrderInput | SortOrder
+    slug?: SortOrder
+    divisionId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    division?: DivisionOrderByWithRelationInput
+  }
+
+  export type DistrictWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    name_divisionId?: DistrictNameDivisionIdCompoundUniqueInput
+    AND?: DistrictWhereInput | DistrictWhereInput[]
+    OR?: DistrictWhereInput[]
+    NOT?: DistrictWhereInput | DistrictWhereInput[]
+    name?: StringFilter<"District"> | string
+    nameBn?: StringNullableFilter<"District"> | string | null
+    slug?: StringFilter<"District"> | string
+    divisionId?: BigIntFilter<"District"> | bigint | number
+    isActive?: BoolFilter<"District"> | boolean
+    createdAt?: DateTimeFilter<"District"> | Date | string
+    updatedAt?: DateTimeFilter<"District"> | Date | string
+    division?: XOR<DivisionRelationFilter, DivisionWhereInput>
+  }, "id" | "name_divisionId">
+
+  export type DistrictOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameBn?: SortOrderInput | SortOrder
+    slug?: SortOrder
+    divisionId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DistrictCountOrderByAggregateInput
+    _avg?: DistrictAvgOrderByAggregateInput
+    _max?: DistrictMaxOrderByAggregateInput
+    _min?: DistrictMinOrderByAggregateInput
+    _sum?: DistrictSumOrderByAggregateInput
+  }
+
+  export type DistrictScalarWhereWithAggregatesInput = {
+    AND?: DistrictScalarWhereWithAggregatesInput | DistrictScalarWhereWithAggregatesInput[]
+    OR?: DistrictScalarWhereWithAggregatesInput[]
+    NOT?: DistrictScalarWhereWithAggregatesInput | DistrictScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"District"> | bigint | number
+    name?: StringWithAggregatesFilter<"District"> | string
+    nameBn?: StringNullableWithAggregatesFilter<"District"> | string | null
+    slug?: StringWithAggregatesFilter<"District"> | string
+    divisionId?: BigIntWithAggregatesFilter<"District"> | bigint | number
+    isActive?: BoolWithAggregatesFilter<"District"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"District"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"District"> | Date | string
+  }
+
   export type SpecialtyWhereInput = {
     AND?: SpecialtyWhereInput | SpecialtyWhereInput[]
     OR?: SpecialtyWhereInput[]
@@ -16901,8 +19368,11 @@ export namespace Prisma {
     slug?: StringFilter<"Specialty"> | string
     icon?: StringNullableFilter<"Specialty"> | string | null
     parentId?: BigIntNullableFilter<"Specialty"> | bigint | number | null
+    isActive?: BoolFilter<"Specialty"> | boolean
+    order?: IntFilter<"Specialty"> | number
     createdAt?: DateTimeFilter<"Specialty"> | Date | string
     updatedAt?: DateTimeFilter<"Specialty"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Specialty"> | Date | string | null
     parent?: XOR<SpecialtyNullableRelationFilter, SpecialtyWhereInput> | null
     subSpecialties?: SpecialtyListRelationFilter
     doctors?: DoctorSpecialtyListRelationFilter
@@ -16915,8 +19385,11 @@ export namespace Prisma {
     slug?: SortOrder
     icon?: SortOrderInput | SortOrder
     parentId?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    order?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     parent?: SpecialtyOrderByWithRelationInput
     subSpecialties?: SpecialtyOrderByRelationAggregateInput
     doctors?: DoctorSpecialtyOrderByRelationAggregateInput
@@ -16932,8 +19405,11 @@ export namespace Prisma {
     nameBn?: StringNullableFilter<"Specialty"> | string | null
     icon?: StringNullableFilter<"Specialty"> | string | null
     parentId?: BigIntNullableFilter<"Specialty"> | bigint | number | null
+    isActive?: BoolFilter<"Specialty"> | boolean
+    order?: IntFilter<"Specialty"> | number
     createdAt?: DateTimeFilter<"Specialty"> | Date | string
     updatedAt?: DateTimeFilter<"Specialty"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Specialty"> | Date | string | null
     parent?: XOR<SpecialtyNullableRelationFilter, SpecialtyWhereInput> | null
     subSpecialties?: SpecialtyListRelationFilter
     doctors?: DoctorSpecialtyListRelationFilter
@@ -16946,8 +19422,11 @@ export namespace Prisma {
     slug?: SortOrder
     icon?: SortOrderInput | SortOrder
     parentId?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    order?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     _count?: SpecialtyCountOrderByAggregateInput
     _avg?: SpecialtyAvgOrderByAggregateInput
     _max?: SpecialtyMaxOrderByAggregateInput
@@ -16965,8 +19444,11 @@ export namespace Prisma {
     slug?: StringWithAggregatesFilter<"Specialty"> | string
     icon?: StringNullableWithAggregatesFilter<"Specialty"> | string | null
     parentId?: BigIntNullableWithAggregatesFilter<"Specialty"> | bigint | number | null
+    isActive?: BoolWithAggregatesFilter<"Specialty"> | boolean
+    order?: IntWithAggregatesFilter<"Specialty"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Specialty"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Specialty"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Specialty"> | Date | string | null
   }
 
   export type PatientWhereInput = {
@@ -17068,6 +19550,7 @@ export namespace Prisma {
     NOT?: DoctorWhereInput | DoctorWhereInput[]
     id?: BigIntFilter<"Doctor"> | bigint | number
     userId?: BigIntFilter<"Doctor"> | bigint | number
+    nameBn?: StringNullableFilter<"Doctor"> | string | null
     qualification?: StringNullableFilter<"Doctor"> | string | null
     experienceYears?: IntFilter<"Doctor"> | number
     consultationFee?: DecimalFilter<"Doctor"> | Decimal | DecimalJsLike | number | string
@@ -17089,6 +19572,7 @@ export namespace Prisma {
   export type DoctorOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
+    nameBn?: SortOrderInput | SortOrder
     qualification?: SortOrderInput | SortOrder
     experienceYears?: SortOrder
     consultationFee?: SortOrder
@@ -17114,6 +19598,7 @@ export namespace Prisma {
     AND?: DoctorWhereInput | DoctorWhereInput[]
     OR?: DoctorWhereInput[]
     NOT?: DoctorWhereInput | DoctorWhereInput[]
+    nameBn?: StringNullableFilter<"Doctor"> | string | null
     qualification?: StringNullableFilter<"Doctor"> | string | null
     experienceYears?: IntFilter<"Doctor"> | number
     consultationFee?: DecimalFilter<"Doctor"> | Decimal | DecimalJsLike | number | string
@@ -17134,6 +19619,7 @@ export namespace Prisma {
   export type DoctorOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
+    nameBn?: SortOrderInput | SortOrder
     qualification?: SortOrderInput | SortOrder
     experienceYears?: SortOrder
     consultationFee?: SortOrder
@@ -17158,6 +19644,7 @@ export namespace Prisma {
     NOT?: DoctorScalarWhereWithAggregatesInput | DoctorScalarWhereWithAggregatesInput[]
     id?: BigIntWithAggregatesFilter<"Doctor"> | bigint | number
     userId?: BigIntWithAggregatesFilter<"Doctor"> | bigint | number
+    nameBn?: StringNullableWithAggregatesFilter<"Doctor"> | string | null
     qualification?: StringNullableWithAggregatesFilter<"Doctor"> | string | null
     experienceYears?: IntWithAggregatesFilter<"Doctor"> | number
     consultationFee?: DecimalWithAggregatesFilter<"Doctor"> | Decimal | DecimalJsLike | number | string
@@ -17228,6 +19715,7 @@ export namespace Prisma {
     NOT?: HospitalWhereInput | HospitalWhereInput[]
     id?: BigIntFilter<"Hospital"> | bigint | number
     name?: StringFilter<"Hospital"> | string
+    nameBn?: StringNullableFilter<"Hospital"> | string | null
     slug?: StringFilter<"Hospital"> | string
     address?: StringFilter<"Hospital"> | string
     city?: StringNullableFilter<"Hospital"> | string | null
@@ -17248,6 +19736,7 @@ export namespace Prisma {
   export type HospitalOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    nameBn?: SortOrderInput | SortOrder
     slug?: SortOrder
     address?: SortOrder
     city?: SortOrderInput | SortOrder
@@ -17272,6 +19761,7 @@ export namespace Prisma {
     OR?: HospitalWhereInput[]
     NOT?: HospitalWhereInput | HospitalWhereInput[]
     name?: StringFilter<"Hospital"> | string
+    nameBn?: StringNullableFilter<"Hospital"> | string | null
     address?: StringFilter<"Hospital"> | string
     city?: StringNullableFilter<"Hospital"> | string | null
     district?: StringNullableFilter<"Hospital"> | string | null
@@ -17291,6 +19781,7 @@ export namespace Prisma {
   export type HospitalOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    nameBn?: SortOrderInput | SortOrder
     slug?: SortOrder
     address?: SortOrder
     city?: SortOrderInput | SortOrder
@@ -17318,6 +19809,7 @@ export namespace Prisma {
     NOT?: HospitalScalarWhereWithAggregatesInput | HospitalScalarWhereWithAggregatesInput[]
     id?: BigIntWithAggregatesFilter<"Hospital"> | bigint | number
     name?: StringWithAggregatesFilter<"Hospital"> | string
+    nameBn?: StringNullableWithAggregatesFilter<"Hospital"> | string | null
     slug?: StringWithAggregatesFilter<"Hospital"> | string
     address?: StringWithAggregatesFilter<"Hospital"> | string
     city?: StringNullableWithAggregatesFilter<"Hospital"> | string | null
@@ -17340,7 +19832,7 @@ export namespace Prisma {
     NOT?: ChamberWhereInput | ChamberWhereInput[]
     id?: BigIntFilter<"Chamber"> | bigint | number
     doctorId?: BigIntFilter<"Chamber"> | bigint | number
-    hospitalId?: BigIntFilter<"Chamber"> | bigint | number
+    hospitalId?: BigIntNullableFilter<"Chamber"> | bigint | number | null
     chamberName?: StringFilter<"Chamber"> | string
     address?: StringFilter<"Chamber"> | string
     city?: StringNullableFilter<"Chamber"> | string | null
@@ -17355,14 +19847,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Chamber"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Chamber"> | Date | string | null
     doctor?: XOR<DoctorRelationFilter, DoctorWhereInput>
-    hospital?: XOR<HospitalRelationFilter, HospitalWhereInput>
+    hospital?: XOR<HospitalNullableRelationFilter, HospitalWhereInput> | null
     appointments?: AppointmentListRelationFilter
   }
 
   export type ChamberOrderByWithRelationInput = {
     id?: SortOrder
     doctorId?: SortOrder
-    hospitalId?: SortOrder
+    hospitalId?: SortOrderInput | SortOrder
     chamberName?: SortOrder
     address?: SortOrder
     city?: SortOrderInput | SortOrder
@@ -17387,7 +19879,7 @@ export namespace Prisma {
     OR?: ChamberWhereInput[]
     NOT?: ChamberWhereInput | ChamberWhereInput[]
     doctorId?: BigIntFilter<"Chamber"> | bigint | number
-    hospitalId?: BigIntFilter<"Chamber"> | bigint | number
+    hospitalId?: BigIntNullableFilter<"Chamber"> | bigint | number | null
     chamberName?: StringFilter<"Chamber"> | string
     address?: StringFilter<"Chamber"> | string
     city?: StringNullableFilter<"Chamber"> | string | null
@@ -17402,14 +19894,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Chamber"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Chamber"> | Date | string | null
     doctor?: XOR<DoctorRelationFilter, DoctorWhereInput>
-    hospital?: XOR<HospitalRelationFilter, HospitalWhereInput>
+    hospital?: XOR<HospitalNullableRelationFilter, HospitalWhereInput> | null
     appointments?: AppointmentListRelationFilter
   }, "id">
 
   export type ChamberOrderByWithAggregationInput = {
     id?: SortOrder
     doctorId?: SortOrder
-    hospitalId?: SortOrder
+    hospitalId?: SortOrderInput | SortOrder
     chamberName?: SortOrder
     address?: SortOrder
     city?: SortOrderInput | SortOrder
@@ -17436,7 +19928,7 @@ export namespace Prisma {
     NOT?: ChamberScalarWhereWithAggregatesInput | ChamberScalarWhereWithAggregatesInput[]
     id?: BigIntWithAggregatesFilter<"Chamber"> | bigint | number
     doctorId?: BigIntWithAggregatesFilter<"Chamber"> | bigint | number
-    hospitalId?: BigIntWithAggregatesFilter<"Chamber"> | bigint | number
+    hospitalId?: BigIntNullableWithAggregatesFilter<"Chamber"> | bigint | number | null
     chamberName?: StringWithAggregatesFilter<"Chamber"> | string
     address?: StringWithAggregatesFilter<"Chamber"> | string
     city?: StringNullableWithAggregatesFilter<"Chamber"> | string | null
@@ -18085,14 +20577,167 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type DivisionCreateInput = {
+    id?: bigint | number
+    name: string
+    nameBn?: string | null
+    slug: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    districts?: DistrictCreateNestedManyWithoutDivisionInput
+  }
+
+  export type DivisionUncheckedCreateInput = {
+    id?: bigint | number
+    name: string
+    nameBn?: string | null
+    slug: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    districts?: DistrictUncheckedCreateNestedManyWithoutDivisionInput
+  }
+
+  export type DivisionUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    districts?: DistrictUpdateManyWithoutDivisionNestedInput
+  }
+
+  export type DivisionUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    districts?: DistrictUncheckedUpdateManyWithoutDivisionNestedInput
+  }
+
+  export type DivisionCreateManyInput = {
+    id?: bigint | number
+    name: string
+    nameBn?: string | null
+    slug: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DivisionUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DivisionUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DistrictCreateInput = {
+    id?: bigint | number
+    name: string
+    nameBn?: string | null
+    slug: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    division: DivisionCreateNestedOneWithoutDistrictsInput
+  }
+
+  export type DistrictUncheckedCreateInput = {
+    id?: bigint | number
+    name: string
+    nameBn?: string | null
+    slug: string
+    divisionId: bigint | number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DistrictUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    division?: DivisionUpdateOneRequiredWithoutDistrictsNestedInput
+  }
+
+  export type DistrictUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    divisionId?: BigIntFieldUpdateOperationsInput | bigint | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DistrictCreateManyInput = {
+    id?: bigint | number
+    name: string
+    nameBn?: string | null
+    slug: string
+    divisionId: bigint | number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DistrictUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DistrictUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    divisionId?: BigIntFieldUpdateOperationsInput | bigint | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SpecialtyCreateInput = {
     id?: bigint | number
     name: string
     nameBn?: string | null
     slug: string
     icon?: string | null
+    isActive?: boolean
+    order?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     parent?: SpecialtyCreateNestedOneWithoutSubSpecialtiesInput
     subSpecialties?: SpecialtyCreateNestedManyWithoutParentInput
     doctors?: DoctorSpecialtyCreateNestedManyWithoutSpecialtyInput
@@ -18105,8 +20750,11 @@ export namespace Prisma {
     slug: string
     icon?: string | null
     parentId?: bigint | number | null
+    isActive?: boolean
+    order?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     subSpecialties?: SpecialtyUncheckedCreateNestedManyWithoutParentInput
     doctors?: DoctorSpecialtyUncheckedCreateNestedManyWithoutSpecialtyInput
   }
@@ -18117,8 +20765,11 @@ export namespace Prisma {
     nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     parent?: SpecialtyUpdateOneWithoutSubSpecialtiesNestedInput
     subSpecialties?: SpecialtyUpdateManyWithoutParentNestedInput
     doctors?: DoctorSpecialtyUpdateManyWithoutSpecialtyNestedInput
@@ -18131,8 +20782,11 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subSpecialties?: SpecialtyUncheckedUpdateManyWithoutParentNestedInput
     doctors?: DoctorSpecialtyUncheckedUpdateManyWithoutSpecialtyNestedInput
   }
@@ -18144,8 +20798,11 @@ export namespace Prisma {
     slug: string
     icon?: string | null
     parentId?: bigint | number | null
+    isActive?: boolean
+    order?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type SpecialtyUpdateManyMutationInput = {
@@ -18154,8 +20811,11 @@ export namespace Prisma {
     nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type SpecialtyUncheckedUpdateManyInput = {
@@ -18165,8 +20825,11 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type PatientCreateInput = {
@@ -18276,6 +20939,7 @@ export namespace Prisma {
 
   export type DoctorCreateInput = {
     id?: bigint | number
+    nameBn?: string | null
     qualification?: string | null
     experienceYears?: number
     consultationFee?: Decimal | DecimalJsLike | number | string
@@ -18297,6 +20961,7 @@ export namespace Prisma {
   export type DoctorUncheckedCreateInput = {
     id?: bigint | number
     userId: bigint | number
+    nameBn?: string | null
     qualification?: string | null
     experienceYears?: number
     consultationFee?: Decimal | DecimalJsLike | number | string
@@ -18316,6 +20981,7 @@ export namespace Prisma {
 
   export type DoctorUpdateInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     qualification?: NullableStringFieldUpdateOperationsInput | string | null
     experienceYears?: IntFieldUpdateOperationsInput | number
     consultationFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -18337,6 +21003,7 @@ export namespace Prisma {
   export type DoctorUncheckedUpdateInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     userId?: BigIntFieldUpdateOperationsInput | bigint | number
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     qualification?: NullableStringFieldUpdateOperationsInput | string | null
     experienceYears?: IntFieldUpdateOperationsInput | number
     consultationFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -18357,6 +21024,7 @@ export namespace Prisma {
   export type DoctorCreateManyInput = {
     id?: bigint | number
     userId: bigint | number
+    nameBn?: string | null
     qualification?: string | null
     experienceYears?: number
     consultationFee?: Decimal | DecimalJsLike | number | string
@@ -18372,6 +21040,7 @@ export namespace Prisma {
 
   export type DoctorUpdateManyMutationInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     qualification?: NullableStringFieldUpdateOperationsInput | string | null
     experienceYears?: IntFieldUpdateOperationsInput | number
     consultationFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -18388,6 +21057,7 @@ export namespace Prisma {
   export type DoctorUncheckedUpdateManyInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     userId?: BigIntFieldUpdateOperationsInput | bigint | number
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     qualification?: NullableStringFieldUpdateOperationsInput | string | null
     experienceYears?: IntFieldUpdateOperationsInput | number
     consultationFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -18444,6 +21114,7 @@ export namespace Prisma {
   export type HospitalCreateInput = {
     id?: bigint | number
     name: string
+    nameBn?: string | null
     slug: string
     address: string
     city?: string | null
@@ -18464,6 +21135,7 @@ export namespace Prisma {
   export type HospitalUncheckedCreateInput = {
     id?: bigint | number
     name: string
+    nameBn?: string | null
     slug: string
     address: string
     city?: string | null
@@ -18484,6 +21156,7 @@ export namespace Prisma {
   export type HospitalUpdateInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18504,6 +21177,7 @@ export namespace Prisma {
   export type HospitalUncheckedUpdateInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18524,6 +21198,7 @@ export namespace Prisma {
   export type HospitalCreateManyInput = {
     id?: bigint | number
     name: string
+    nameBn?: string | null
     slug: string
     address: string
     city?: string | null
@@ -18543,6 +21218,7 @@ export namespace Prisma {
   export type HospitalUpdateManyMutationInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18562,6 +21238,7 @@ export namespace Prisma {
   export type HospitalUncheckedUpdateManyInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18594,14 +21271,14 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     doctor: DoctorCreateNestedOneWithoutChambersInput
-    hospital: HospitalCreateNestedOneWithoutChambersInput
+    hospital?: HospitalCreateNestedOneWithoutChambersInput
     appointments?: AppointmentCreateNestedManyWithoutChamberInput
   }
 
   export type ChamberUncheckedCreateInput = {
     id?: bigint | number
     doctorId: bigint | number
-    hospitalId: bigint | number
+    hospitalId?: bigint | number | null
     chamberName: string
     address: string
     city?: string | null
@@ -18634,14 +21311,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     doctor?: DoctorUpdateOneRequiredWithoutChambersNestedInput
-    hospital?: HospitalUpdateOneRequiredWithoutChambersNestedInput
+    hospital?: HospitalUpdateOneWithoutChambersNestedInput
     appointments?: AppointmentUpdateManyWithoutChamberNestedInput
   }
 
   export type ChamberUncheckedUpdateInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     doctorId?: BigIntFieldUpdateOperationsInput | bigint | number
-    hospitalId?: BigIntFieldUpdateOperationsInput | bigint | number
+    hospitalId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     chamberName?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18661,7 +21338,7 @@ export namespace Prisma {
   export type ChamberCreateManyInput = {
     id?: bigint | number
     doctorId: bigint | number
-    hospitalId: bigint | number
+    hospitalId?: bigint | number | null
     chamberName: string
     address: string
     city?: string | null
@@ -18697,7 +21374,7 @@ export namespace Prisma {
   export type ChamberUncheckedUpdateManyInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     doctorId?: BigIntFieldUpdateOperationsInput | bigint | number
-    hospitalId?: BigIntFieldUpdateOperationsInput | bigint | number
+    hospitalId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     chamberName?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19523,6 +22200,107 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type DistrictListRelationFilter = {
+    every?: DistrictWhereInput
+    some?: DistrictWhereInput
+    none?: DistrictWhereInput
+  }
+
+  export type DistrictOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DivisionCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameBn?: SortOrder
+    slug?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DivisionAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type DivisionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameBn?: SortOrder
+    slug?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DivisionMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameBn?: SortOrder
+    slug?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DivisionSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type DivisionRelationFilter = {
+    is?: DivisionWhereInput
+    isNot?: DivisionWhereInput
+  }
+
+  export type DistrictNameDivisionIdCompoundUniqueInput = {
+    name: string
+    divisionId: bigint | number
+  }
+
+  export type DistrictCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameBn?: SortOrder
+    slug?: SortOrder
+    divisionId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DistrictAvgOrderByAggregateInput = {
+    id?: SortOrder
+    divisionId?: SortOrder
+  }
+
+  export type DistrictMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameBn?: SortOrder
+    slug?: SortOrder
+    divisionId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DistrictMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameBn?: SortOrder
+    slug?: SortOrder
+    divisionId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DistrictSumOrderByAggregateInput = {
+    id?: SortOrder
+    divisionId?: SortOrder
+  }
+
   export type BigIntNullableFilter<$PrismaModel = never> = {
     equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
     in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
@@ -19532,6 +22310,17 @@ export namespace Prisma {
     gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type SpecialtyNullableRelationFilter = {
@@ -19566,13 +22355,17 @@ export namespace Prisma {
     slug?: SortOrder
     icon?: SortOrder
     parentId?: SortOrder
+    isActive?: SortOrder
+    order?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type SpecialtyAvgOrderByAggregateInput = {
     id?: SortOrder
     parentId?: SortOrder
+    order?: SortOrder
   }
 
   export type SpecialtyMaxOrderByAggregateInput = {
@@ -19582,8 +22375,11 @@ export namespace Prisma {
     slug?: SortOrder
     icon?: SortOrder
     parentId?: SortOrder
+    isActive?: SortOrder
+    order?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type SpecialtyMinOrderByAggregateInput = {
@@ -19593,13 +22389,17 @@ export namespace Prisma {
     slug?: SortOrder
     icon?: SortOrder
     parentId?: SortOrder
+    isActive?: SortOrder
+    order?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type SpecialtySumOrderByAggregateInput = {
     id?: SortOrder
     parentId?: SortOrder
+    order?: SortOrder
   }
 
   export type BigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -19616,6 +22416,22 @@ export namespace Prisma {
     _sum?: NestedBigIntNullableFilter<$PrismaModel>
     _min?: NestedBigIntNullableFilter<$PrismaModel>
     _max?: NestedBigIntNullableFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type EnumGenderNullableFilter<$PrismaModel = never> = {
@@ -19729,17 +22545,6 @@ export namespace Prisma {
     _max?: NestedEnumBloodGroupNullableFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type DecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -19764,6 +22569,7 @@ export namespace Prisma {
   export type DoctorCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    nameBn?: SortOrder
     qualification?: SortOrder
     experienceYears?: SortOrder
     consultationFee?: SortOrder
@@ -19787,6 +22593,7 @@ export namespace Prisma {
   export type DoctorMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    nameBn?: SortOrder
     qualification?: SortOrder
     experienceYears?: SortOrder
     consultationFee?: SortOrder
@@ -19803,6 +22610,7 @@ export namespace Prisma {
   export type DoctorMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    nameBn?: SortOrder
     qualification?: SortOrder
     experienceYears?: SortOrder
     consultationFee?: SortOrder
@@ -19821,22 +22629,6 @@ export namespace Prisma {
     userId?: SortOrder
     experienceYears?: SortOrder
     consultationFee?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -19912,6 +22704,7 @@ export namespace Prisma {
   export type HospitalCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    nameBn?: SortOrder
     slug?: SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -19937,6 +22730,7 @@ export namespace Prisma {
   export type HospitalMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    nameBn?: SortOrder
     slug?: SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -19956,6 +22750,7 @@ export namespace Prisma {
   export type HospitalMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    nameBn?: SortOrder
     slug?: SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -19994,9 +22789,9 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
-  export type HospitalRelationFilter = {
-    is?: HospitalWhereInput
-    isNot?: HospitalWhereInput
+  export type HospitalNullableRelationFilter = {
+    is?: HospitalWhereInput | null
+    isNot?: HospitalWhereInput | null
   }
 
   export type ChamberCountOrderByAggregateInput = {
@@ -20792,6 +23587,62 @@ export namespace Prisma {
     deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
   }
 
+  export type DistrictCreateNestedManyWithoutDivisionInput = {
+    create?: XOR<DistrictCreateWithoutDivisionInput, DistrictUncheckedCreateWithoutDivisionInput> | DistrictCreateWithoutDivisionInput[] | DistrictUncheckedCreateWithoutDivisionInput[]
+    connectOrCreate?: DistrictCreateOrConnectWithoutDivisionInput | DistrictCreateOrConnectWithoutDivisionInput[]
+    createMany?: DistrictCreateManyDivisionInputEnvelope
+    connect?: DistrictWhereUniqueInput | DistrictWhereUniqueInput[]
+  }
+
+  export type DistrictUncheckedCreateNestedManyWithoutDivisionInput = {
+    create?: XOR<DistrictCreateWithoutDivisionInput, DistrictUncheckedCreateWithoutDivisionInput> | DistrictCreateWithoutDivisionInput[] | DistrictUncheckedCreateWithoutDivisionInput[]
+    connectOrCreate?: DistrictCreateOrConnectWithoutDivisionInput | DistrictCreateOrConnectWithoutDivisionInput[]
+    createMany?: DistrictCreateManyDivisionInputEnvelope
+    connect?: DistrictWhereUniqueInput | DistrictWhereUniqueInput[]
+  }
+
+  export type DistrictUpdateManyWithoutDivisionNestedInput = {
+    create?: XOR<DistrictCreateWithoutDivisionInput, DistrictUncheckedCreateWithoutDivisionInput> | DistrictCreateWithoutDivisionInput[] | DistrictUncheckedCreateWithoutDivisionInput[]
+    connectOrCreate?: DistrictCreateOrConnectWithoutDivisionInput | DistrictCreateOrConnectWithoutDivisionInput[]
+    upsert?: DistrictUpsertWithWhereUniqueWithoutDivisionInput | DistrictUpsertWithWhereUniqueWithoutDivisionInput[]
+    createMany?: DistrictCreateManyDivisionInputEnvelope
+    set?: DistrictWhereUniqueInput | DistrictWhereUniqueInput[]
+    disconnect?: DistrictWhereUniqueInput | DistrictWhereUniqueInput[]
+    delete?: DistrictWhereUniqueInput | DistrictWhereUniqueInput[]
+    connect?: DistrictWhereUniqueInput | DistrictWhereUniqueInput[]
+    update?: DistrictUpdateWithWhereUniqueWithoutDivisionInput | DistrictUpdateWithWhereUniqueWithoutDivisionInput[]
+    updateMany?: DistrictUpdateManyWithWhereWithoutDivisionInput | DistrictUpdateManyWithWhereWithoutDivisionInput[]
+    deleteMany?: DistrictScalarWhereInput | DistrictScalarWhereInput[]
+  }
+
+  export type DistrictUncheckedUpdateManyWithoutDivisionNestedInput = {
+    create?: XOR<DistrictCreateWithoutDivisionInput, DistrictUncheckedCreateWithoutDivisionInput> | DistrictCreateWithoutDivisionInput[] | DistrictUncheckedCreateWithoutDivisionInput[]
+    connectOrCreate?: DistrictCreateOrConnectWithoutDivisionInput | DistrictCreateOrConnectWithoutDivisionInput[]
+    upsert?: DistrictUpsertWithWhereUniqueWithoutDivisionInput | DistrictUpsertWithWhereUniqueWithoutDivisionInput[]
+    createMany?: DistrictCreateManyDivisionInputEnvelope
+    set?: DistrictWhereUniqueInput | DistrictWhereUniqueInput[]
+    disconnect?: DistrictWhereUniqueInput | DistrictWhereUniqueInput[]
+    delete?: DistrictWhereUniqueInput | DistrictWhereUniqueInput[]
+    connect?: DistrictWhereUniqueInput | DistrictWhereUniqueInput[]
+    update?: DistrictUpdateWithWhereUniqueWithoutDivisionInput | DistrictUpdateWithWhereUniqueWithoutDivisionInput[]
+    updateMany?: DistrictUpdateManyWithWhereWithoutDivisionInput | DistrictUpdateManyWithWhereWithoutDivisionInput[]
+    deleteMany?: DistrictScalarWhereInput | DistrictScalarWhereInput[]
+  }
+
+  export type DivisionCreateNestedOneWithoutDistrictsInput = {
+    create?: XOR<DivisionCreateWithoutDistrictsInput, DivisionUncheckedCreateWithoutDistrictsInput>
+    connectOrCreate?: DivisionCreateOrConnectWithoutDistrictsInput
+    connect?: DivisionWhereUniqueInput
+  }
+
+  export type DivisionUpdateOneRequiredWithoutDistrictsNestedInput = {
+    create?: XOR<DivisionCreateWithoutDistrictsInput, DivisionUncheckedCreateWithoutDistrictsInput>
+    connectOrCreate?: DivisionCreateOrConnectWithoutDistrictsInput
+    upsert?: DivisionUpsertWithoutDistrictsInput
+    connect?: DivisionWhereUniqueInput
+    update?: XOR<XOR<DivisionUpdateToOneWithWhereWithoutDistrictsInput, DivisionUpdateWithoutDistrictsInput>, DivisionUncheckedUpdateWithoutDistrictsInput>
+  }
+
   export type SpecialtyCreateNestedOneWithoutSubSpecialtiesInput = {
     create?: XOR<SpecialtyCreateWithoutSubSpecialtiesInput, SpecialtyUncheckedCreateWithoutSubSpecialtiesInput>
     connectOrCreate?: SpecialtyCreateOrConnectWithoutSubSpecialtiesInput
@@ -20824,6 +23675,14 @@ export namespace Prisma {
     connectOrCreate?: DoctorSpecialtyCreateOrConnectWithoutSpecialtyInput | DoctorSpecialtyCreateOrConnectWithoutSpecialtyInput[]
     createMany?: DoctorSpecialtyCreateManySpecialtyInputEnvelope
     connect?: DoctorSpecialtyWhereUniqueInput | DoctorSpecialtyWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type SpecialtyUpdateOneWithoutSubSpecialtiesNestedInput = {
@@ -21068,14 +23927,6 @@ export namespace Prisma {
     connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type DecimalFieldUpdateOperationsInput = {
     set?: Decimal | DecimalJsLike | number | string
     increment?: Decimal | DecimalJsLike | number | string
@@ -21316,10 +24167,12 @@ export namespace Prisma {
     update?: XOR<XOR<DoctorUpdateToOneWithWhereWithoutChambersInput, DoctorUpdateWithoutChambersInput>, DoctorUncheckedUpdateWithoutChambersInput>
   }
 
-  export type HospitalUpdateOneRequiredWithoutChambersNestedInput = {
+  export type HospitalUpdateOneWithoutChambersNestedInput = {
     create?: XOR<HospitalCreateWithoutChambersInput, HospitalUncheckedCreateWithoutChambersInput>
     connectOrCreate?: HospitalCreateOrConnectWithoutChambersInput
     upsert?: HospitalUpsertWithoutChambersInput
+    disconnect?: HospitalWhereInput | boolean
+    delete?: HospitalWhereInput | boolean
     connect?: HospitalWhereUniqueInput
     update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutChambersInput, HospitalUpdateWithoutChambersInput>, HospitalUncheckedUpdateWithoutChambersInput>
   }
@@ -21796,6 +24649,22 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type NestedEnumGenderNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
     in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
@@ -21839,22 +24708,6 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -22033,6 +24886,7 @@ export namespace Prisma {
 
   export type DoctorCreateWithoutUserInput = {
     id?: bigint | number
+    nameBn?: string | null
     qualification?: string | null
     experienceYears?: number
     consultationFee?: Decimal | DecimalJsLike | number | string
@@ -22052,6 +24906,7 @@ export namespace Prisma {
 
   export type DoctorUncheckedCreateWithoutUserInput = {
     id?: bigint | number
+    nameBn?: string | null
     qualification?: string | null
     experienceYears?: number
     consultationFee?: Decimal | DecimalJsLike | number | string
@@ -22244,6 +25099,7 @@ export namespace Prisma {
 
   export type DoctorUpdateWithoutUserInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     qualification?: NullableStringFieldUpdateOperationsInput | string | null
     experienceYears?: IntFieldUpdateOperationsInput | number
     consultationFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -22263,6 +25119,7 @@ export namespace Prisma {
 
   export type DoctorUncheckedUpdateWithoutUserInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     qualification?: NullableStringFieldUpdateOperationsInput | string | null
     experienceYears?: IntFieldUpdateOperationsInput | number
     consultationFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -22398,14 +25255,133 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
   }
 
+  export type DistrictCreateWithoutDivisionInput = {
+    id?: bigint | number
+    name: string
+    nameBn?: string | null
+    slug: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DistrictUncheckedCreateWithoutDivisionInput = {
+    id?: bigint | number
+    name: string
+    nameBn?: string | null
+    slug: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DistrictCreateOrConnectWithoutDivisionInput = {
+    where: DistrictWhereUniqueInput
+    create: XOR<DistrictCreateWithoutDivisionInput, DistrictUncheckedCreateWithoutDivisionInput>
+  }
+
+  export type DistrictCreateManyDivisionInputEnvelope = {
+    data: DistrictCreateManyDivisionInput | DistrictCreateManyDivisionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DistrictUpsertWithWhereUniqueWithoutDivisionInput = {
+    where: DistrictWhereUniqueInput
+    update: XOR<DistrictUpdateWithoutDivisionInput, DistrictUncheckedUpdateWithoutDivisionInput>
+    create: XOR<DistrictCreateWithoutDivisionInput, DistrictUncheckedCreateWithoutDivisionInput>
+  }
+
+  export type DistrictUpdateWithWhereUniqueWithoutDivisionInput = {
+    where: DistrictWhereUniqueInput
+    data: XOR<DistrictUpdateWithoutDivisionInput, DistrictUncheckedUpdateWithoutDivisionInput>
+  }
+
+  export type DistrictUpdateManyWithWhereWithoutDivisionInput = {
+    where: DistrictScalarWhereInput
+    data: XOR<DistrictUpdateManyMutationInput, DistrictUncheckedUpdateManyWithoutDivisionInput>
+  }
+
+  export type DistrictScalarWhereInput = {
+    AND?: DistrictScalarWhereInput | DistrictScalarWhereInput[]
+    OR?: DistrictScalarWhereInput[]
+    NOT?: DistrictScalarWhereInput | DistrictScalarWhereInput[]
+    id?: BigIntFilter<"District"> | bigint | number
+    name?: StringFilter<"District"> | string
+    nameBn?: StringNullableFilter<"District"> | string | null
+    slug?: StringFilter<"District"> | string
+    divisionId?: BigIntFilter<"District"> | bigint | number
+    isActive?: BoolFilter<"District"> | boolean
+    createdAt?: DateTimeFilter<"District"> | Date | string
+    updatedAt?: DateTimeFilter<"District"> | Date | string
+  }
+
+  export type DivisionCreateWithoutDistrictsInput = {
+    id?: bigint | number
+    name: string
+    nameBn?: string | null
+    slug: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DivisionUncheckedCreateWithoutDistrictsInput = {
+    id?: bigint | number
+    name: string
+    nameBn?: string | null
+    slug: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DivisionCreateOrConnectWithoutDistrictsInput = {
+    where: DivisionWhereUniqueInput
+    create: XOR<DivisionCreateWithoutDistrictsInput, DivisionUncheckedCreateWithoutDistrictsInput>
+  }
+
+  export type DivisionUpsertWithoutDistrictsInput = {
+    update: XOR<DivisionUpdateWithoutDistrictsInput, DivisionUncheckedUpdateWithoutDistrictsInput>
+    create: XOR<DivisionCreateWithoutDistrictsInput, DivisionUncheckedCreateWithoutDistrictsInput>
+    where?: DivisionWhereInput
+  }
+
+  export type DivisionUpdateToOneWithWhereWithoutDistrictsInput = {
+    where?: DivisionWhereInput
+    data: XOR<DivisionUpdateWithoutDistrictsInput, DivisionUncheckedUpdateWithoutDistrictsInput>
+  }
+
+  export type DivisionUpdateWithoutDistrictsInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DivisionUncheckedUpdateWithoutDistrictsInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SpecialtyCreateWithoutSubSpecialtiesInput = {
     id?: bigint | number
     name: string
     nameBn?: string | null
     slug: string
     icon?: string | null
+    isActive?: boolean
+    order?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     parent?: SpecialtyCreateNestedOneWithoutSubSpecialtiesInput
     doctors?: DoctorSpecialtyCreateNestedManyWithoutSpecialtyInput
   }
@@ -22417,8 +25393,11 @@ export namespace Prisma {
     slug: string
     icon?: string | null
     parentId?: bigint | number | null
+    isActive?: boolean
+    order?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     doctors?: DoctorSpecialtyUncheckedCreateNestedManyWithoutSpecialtyInput
   }
 
@@ -22433,8 +25412,11 @@ export namespace Prisma {
     nameBn?: string | null
     slug: string
     icon?: string | null
+    isActive?: boolean
+    order?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     subSpecialties?: SpecialtyCreateNestedManyWithoutParentInput
     doctors?: DoctorSpecialtyCreateNestedManyWithoutSpecialtyInput
   }
@@ -22445,8 +25427,11 @@ export namespace Prisma {
     nameBn?: string | null
     slug: string
     icon?: string | null
+    isActive?: boolean
+    order?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     subSpecialties?: SpecialtyUncheckedCreateNestedManyWithoutParentInput
     doctors?: DoctorSpecialtyUncheckedCreateNestedManyWithoutSpecialtyInput
   }
@@ -22498,8 +25483,11 @@ export namespace Prisma {
     nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     parent?: SpecialtyUpdateOneWithoutSubSpecialtiesNestedInput
     doctors?: DoctorSpecialtyUpdateManyWithoutSpecialtyNestedInput
   }
@@ -22511,8 +25499,11 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     doctors?: DoctorSpecialtyUncheckedUpdateManyWithoutSpecialtyNestedInput
   }
 
@@ -22542,8 +25533,11 @@ export namespace Prisma {
     slug?: StringFilter<"Specialty"> | string
     icon?: StringNullableFilter<"Specialty"> | string | null
     parentId?: BigIntNullableFilter<"Specialty"> | bigint | number | null
+    isActive?: BoolFilter<"Specialty"> | boolean
+    order?: IntFilter<"Specialty"> | number
     createdAt?: DateTimeFilter<"Specialty"> | Date | string
     updatedAt?: DateTimeFilter<"Specialty"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Specialty"> | Date | string | null
   }
 
   export type DoctorSpecialtyUpsertWithWhereUniqueWithoutSpecialtyInput = {
@@ -22911,13 +25905,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    hospital: HospitalCreateNestedOneWithoutChambersInput
+    hospital?: HospitalCreateNestedOneWithoutChambersInput
     appointments?: AppointmentCreateNestedManyWithoutChamberInput
   }
 
   export type ChamberUncheckedCreateWithoutDoctorInput = {
     id?: bigint | number
-    hospitalId: bigint | number
+    hospitalId?: bigint | number | null
     chamberName: string
     address: string
     city?: string | null
@@ -23121,7 +26115,7 @@ export namespace Prisma {
     NOT?: ChamberScalarWhereInput | ChamberScalarWhereInput[]
     id?: BigIntFilter<"Chamber"> | bigint | number
     doctorId?: BigIntFilter<"Chamber"> | bigint | number
-    hospitalId?: BigIntFilter<"Chamber"> | bigint | number
+    hospitalId?: BigIntNullableFilter<"Chamber"> | bigint | number | null
     chamberName?: StringFilter<"Chamber"> | string
     address?: StringFilter<"Chamber"> | string
     city?: StringNullableFilter<"Chamber"> | string | null
@@ -23171,6 +26165,7 @@ export namespace Prisma {
 
   export type DoctorCreateWithoutSpecialtiesInput = {
     id?: bigint | number
+    nameBn?: string | null
     qualification?: string | null
     experienceYears?: number
     consultationFee?: Decimal | DecimalJsLike | number | string
@@ -23191,6 +26186,7 @@ export namespace Prisma {
   export type DoctorUncheckedCreateWithoutSpecialtiesInput = {
     id?: bigint | number
     userId: bigint | number
+    nameBn?: string | null
     qualification?: string | null
     experienceYears?: number
     consultationFee?: Decimal | DecimalJsLike | number | string
@@ -23218,8 +26214,11 @@ export namespace Prisma {
     nameBn?: string | null
     slug: string
     icon?: string | null
+    isActive?: boolean
+    order?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     parent?: SpecialtyCreateNestedOneWithoutSubSpecialtiesInput
     subSpecialties?: SpecialtyCreateNestedManyWithoutParentInput
   }
@@ -23231,8 +26230,11 @@ export namespace Prisma {
     slug: string
     icon?: string | null
     parentId?: bigint | number | null
+    isActive?: boolean
+    order?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
     subSpecialties?: SpecialtyUncheckedCreateNestedManyWithoutParentInput
   }
 
@@ -23254,6 +26256,7 @@ export namespace Prisma {
 
   export type DoctorUpdateWithoutSpecialtiesInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     qualification?: NullableStringFieldUpdateOperationsInput | string | null
     experienceYears?: IntFieldUpdateOperationsInput | number
     consultationFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -23274,6 +26277,7 @@ export namespace Prisma {
   export type DoctorUncheckedUpdateWithoutSpecialtiesInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     userId?: BigIntFieldUpdateOperationsInput | bigint | number
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     qualification?: NullableStringFieldUpdateOperationsInput | string | null
     experienceYears?: IntFieldUpdateOperationsInput | number
     consultationFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -23307,8 +26311,11 @@ export namespace Prisma {
     nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     parent?: SpecialtyUpdateOneWithoutSubSpecialtiesNestedInput
     subSpecialties?: SpecialtyUpdateManyWithoutParentNestedInput
   }
@@ -23320,8 +26327,11 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subSpecialties?: SpecialtyUncheckedUpdateManyWithoutParentNestedInput
   }
 
@@ -23391,6 +26401,7 @@ export namespace Prisma {
 
   export type DoctorCreateWithoutChambersInput = {
     id?: bigint | number
+    nameBn?: string | null
     qualification?: string | null
     experienceYears?: number
     consultationFee?: Decimal | DecimalJsLike | number | string
@@ -23411,6 +26422,7 @@ export namespace Prisma {
   export type DoctorUncheckedCreateWithoutChambersInput = {
     id?: bigint | number
     userId: bigint | number
+    nameBn?: string | null
     qualification?: string | null
     experienceYears?: number
     consultationFee?: Decimal | DecimalJsLike | number | string
@@ -23435,6 +26447,7 @@ export namespace Prisma {
   export type HospitalCreateWithoutChambersInput = {
     id?: bigint | number
     name: string
+    nameBn?: string | null
     slug: string
     address: string
     city?: string | null
@@ -23454,6 +26467,7 @@ export namespace Prisma {
   export type HospitalUncheckedCreateWithoutChambersInput = {
     id?: bigint | number
     name: string
+    nameBn?: string | null
     slug: string
     address: string
     city?: string | null
@@ -23542,6 +26556,7 @@ export namespace Prisma {
 
   export type DoctorUpdateWithoutChambersInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     qualification?: NullableStringFieldUpdateOperationsInput | string | null
     experienceYears?: IntFieldUpdateOperationsInput | number
     consultationFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -23562,6 +26577,7 @@ export namespace Prisma {
   export type DoctorUncheckedUpdateWithoutChambersInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     userId?: BigIntFieldUpdateOperationsInput | bigint | number
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     qualification?: NullableStringFieldUpdateOperationsInput | string | null
     experienceYears?: IntFieldUpdateOperationsInput | number
     consultationFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -23592,6 +26608,7 @@ export namespace Prisma {
   export type HospitalUpdateWithoutChambersInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23611,6 +26628,7 @@ export namespace Prisma {
   export type HospitalUncheckedUpdateWithoutChambersInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23680,6 +26698,7 @@ export namespace Prisma {
 
   export type DoctorCreateWithoutAppointmentsInput = {
     id?: bigint | number
+    nameBn?: string | null
     qualification?: string | null
     experienceYears?: number
     consultationFee?: Decimal | DecimalJsLike | number | string
@@ -23700,6 +26719,7 @@ export namespace Prisma {
   export type DoctorUncheckedCreateWithoutAppointmentsInput = {
     id?: bigint | number
     userId: bigint | number
+    nameBn?: string | null
     qualification?: string | null
     experienceYears?: number
     consultationFee?: Decimal | DecimalJsLike | number | string
@@ -23737,13 +26757,13 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     doctor: DoctorCreateNestedOneWithoutChambersInput
-    hospital: HospitalCreateNestedOneWithoutChambersInput
+    hospital?: HospitalCreateNestedOneWithoutChambersInput
   }
 
   export type ChamberUncheckedCreateWithoutAppointmentsInput = {
     id?: bigint | number
     doctorId: bigint | number
-    hospitalId: bigint | number
+    hospitalId?: bigint | number | null
     chamberName: string
     address: string
     city?: string | null
@@ -23850,6 +26870,7 @@ export namespace Prisma {
 
   export type DoctorUpdateWithoutAppointmentsInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     qualification?: NullableStringFieldUpdateOperationsInput | string | null
     experienceYears?: IntFieldUpdateOperationsInput | number
     consultationFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -23870,6 +26891,7 @@ export namespace Prisma {
   export type DoctorUncheckedUpdateWithoutAppointmentsInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     userId?: BigIntFieldUpdateOperationsInput | bigint | number
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     qualification?: NullableStringFieldUpdateOperationsInput | string | null
     experienceYears?: IntFieldUpdateOperationsInput | number
     consultationFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -23913,13 +26935,13 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     doctor?: DoctorUpdateOneRequiredWithoutChambersNestedInput
-    hospital?: HospitalUpdateOneRequiredWithoutChambersNestedInput
+    hospital?: HospitalUpdateOneWithoutChambersNestedInput
   }
 
   export type ChamberUncheckedUpdateWithoutAppointmentsInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     doctorId?: BigIntFieldUpdateOperationsInput | bigint | number
-    hospitalId?: BigIntFieldUpdateOperationsInput | bigint | number
+    hospitalId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     chamberName?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24037,6 +27059,7 @@ export namespace Prisma {
 
   export type DoctorCreateWithoutReviewsInput = {
     id?: bigint | number
+    nameBn?: string | null
     qualification?: string | null
     experienceYears?: number
     consultationFee?: Decimal | DecimalJsLike | number | string
@@ -24057,6 +27080,7 @@ export namespace Prisma {
   export type DoctorUncheckedCreateWithoutReviewsInput = {
     id?: bigint | number
     userId: bigint | number
+    nameBn?: string | null
     qualification?: string | null
     experienceYears?: number
     consultationFee?: Decimal | DecimalJsLike | number | string
@@ -24187,6 +27211,7 @@ export namespace Prisma {
 
   export type DoctorUpdateWithoutReviewsInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     qualification?: NullableStringFieldUpdateOperationsInput | string | null
     experienceYears?: IntFieldUpdateOperationsInput | number
     consultationFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -24207,6 +27232,7 @@ export namespace Prisma {
   export type DoctorUncheckedUpdateWithoutReviewsInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     userId?: BigIntFieldUpdateOperationsInput | bigint | number
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     qualification?: NullableStringFieldUpdateOperationsInput | string | null
     experienceYears?: IntFieldUpdateOperationsInput | number
     consultationFee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -24775,14 +27801,57 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DistrictCreateManyDivisionInput = {
+    id?: bigint | number
+    name: string
+    nameBn?: string | null
+    slug: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DistrictUpdateWithoutDivisionInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DistrictUncheckedUpdateWithoutDivisionInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DistrictUncheckedUpdateManyWithoutDivisionInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    nameBn?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SpecialtyCreateManyParentInput = {
     id?: bigint | number
     name: string
     nameBn?: string | null
     slug: string
     icon?: string | null
+    isActive?: boolean
+    order?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type DoctorSpecialtyCreateManySpecialtyInput = {
@@ -24796,8 +27865,11 @@ export namespace Prisma {
     nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subSpecialties?: SpecialtyUpdateManyWithoutParentNestedInput
     doctors?: DoctorSpecialtyUpdateManyWithoutSpecialtyNestedInput
   }
@@ -24808,8 +27880,11 @@ export namespace Prisma {
     nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subSpecialties?: SpecialtyUncheckedUpdateManyWithoutParentNestedInput
     doctors?: DoctorSpecialtyUncheckedUpdateManyWithoutSpecialtyNestedInput
   }
@@ -24820,8 +27895,11 @@ export namespace Prisma {
     nameBn?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type DoctorSpecialtyUpdateWithoutSpecialtyInput = {
@@ -24976,7 +28054,7 @@ export namespace Prisma {
 
   export type ChamberCreateManyDoctorInput = {
     id?: bigint | number
-    hospitalId: bigint | number
+    hospitalId?: bigint | number | null
     chamberName: string
     address: string
     city?: string | null
@@ -25054,13 +28132,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    hospital?: HospitalUpdateOneRequiredWithoutChambersNestedInput
+    hospital?: HospitalUpdateOneWithoutChambersNestedInput
     appointments?: AppointmentUpdateManyWithoutChamberNestedInput
   }
 
   export type ChamberUncheckedUpdateWithoutDoctorInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    hospitalId?: BigIntFieldUpdateOperationsInput | bigint | number
+    hospitalId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     chamberName?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25079,7 +28157,7 @@ export namespace Prisma {
 
   export type ChamberUncheckedUpdateManyWithoutDoctorInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    hospitalId?: BigIntFieldUpdateOperationsInput | bigint | number
+    hospitalId?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     chamberName?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25407,6 +28485,10 @@ export namespace Prisma {
      */
     export type UserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use DivisionCountOutputTypeDefaultArgs instead
+     */
+    export type DivisionCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DivisionCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use SpecialtyCountOutputTypeDefaultArgs instead
      */
     export type SpecialtyCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SpecialtyCountOutputTypeDefaultArgs<ExtArgs>
@@ -25434,6 +28516,14 @@ export namespace Prisma {
      * @deprecated Use UserDefaultArgs instead
      */
     export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use DivisionDefaultArgs instead
+     */
+    export type DivisionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DivisionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use DistrictDefaultArgs instead
+     */
+    export type DistrictArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DistrictDefaultArgs<ExtArgs>
     /**
      * @deprecated Use SpecialtyDefaultArgs instead
      */
