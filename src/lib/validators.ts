@@ -232,3 +232,70 @@ export const hospitalSearchSchema = paginationSchema.extend({
   division: z.string().trim().max(100).optional(),
   active: z.enum(["true", "false"]).optional(),
 });
+
+// ============================================================
+// Phase 3 — Appointments
+// ============================================================
+
+// Validate a "YYYY-MM-DD" calendar date.
+const yyyymmdd = z
+  .string()
+  .trim()
+  .regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format");
+
+// Validate a "HH:mm" 24-hour time.
+const hhmm = z
+  .string()
+  .trim()
+  .regex(/^([01]\d|2[0-3]):[0-5]\d$/, "Time must be in HH:mm (24-hour) format");
+
+// ----- Public slots query -----
+export const slotsQuerySchema = z.object({
+  date: yyyymmdd,
+});
+
+// ----- Create appointment (patient) -----
+// NOTE: doctorId, fee, appointmentNumber, patientId, serialNo are
+// intentionally absent — they are server-derived and never trusted
+// from the client.
+export const createAppointmentSchema = z.object({
+  chamberId: z.coerce.bigint().positive("chamberId is required"),
+  date: yyyymmdd,
+  time: hhmm,
+  patientProblem: z.string().trim().min(3, "Describe your problem in a few words").max(2000).optional(),
+});
+
+// ----- Appointment status update (doctor/admin) -----
+export const updateAppointmentStatusSchema = z.object({
+  status: z.enum(["PENDING", "CONFIRMED", "COMPLETED", "CANCELLED", "NO_SHOW"]),
+  // Required when cancelling; optional otherwise.
+  cancelReason: z.string().trim().min(3).max(500).optional(),
+  doctorNotes: z.string().trim().max(5000).optional(),
+});
+
+// ----- Appointment cancellation (patient) -----
+export const cancelAppointmentSchema = z.object({
+  cancelReason: z.string().trim().min(3, "Please provide a cancellation reason").max(500).optional(),
+});
+
+// ----- Admin appointment list filters -----
+export const appointmentListQuerySchema = paginationSchema.extend({
+  doctorId: z.coerce.bigint().positive().optional(),
+  patientId: z.coerce.bigint().positive().optional(),
+  chamberId: z.coerce.bigint().positive().optional(),
+  date: yyyymmdd.optional(),
+  dateFrom: yyyymmdd.optional(),
+  dateTo: yyyymmdd.optional(),
+  status: z.enum(["PENDING", "CONFIRMED", "COMPLETED", "CANCELLED", "NO_SHOW"]).optional(),
+  upcoming: z.enum(["true", "false"]).optional(),
+  sort: z
+    .enum(["date", "date_desc", "created", "created_desc", "status"])
+    .default("date_desc"),
+});
+
+// Patient/doctor "my appointments" query (no cross-user filters).
+export const myAppointmentsQuerySchema = paginationSchema.extend({
+  status: z.enum(["PENDING", "CONFIRMED", "COMPLETED", "CANCELLED", "NO_SHOW"]).optional(),
+  upcoming: z.enum(["true", "false"]).optional(),
+  sort: z.enum(["date", "date_desc", "created", "created_desc"]).default("date_desc"),
+});

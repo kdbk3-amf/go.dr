@@ -12376,6 +12376,7 @@ export namespace Prisma {
     transactionId: string | null
     cancelReason: string | null
     cancelledBy: bigint | null
+    cancelledAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12398,6 +12399,7 @@ export namespace Prisma {
     transactionId: string | null
     cancelReason: string | null
     cancelledBy: bigint | null
+    cancelledAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12420,6 +12422,7 @@ export namespace Prisma {
     transactionId: number
     cancelReason: number
     cancelledBy: number
+    cancelledAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -12464,6 +12467,7 @@ export namespace Prisma {
     transactionId?: true
     cancelReason?: true
     cancelledBy?: true
+    cancelledAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12486,6 +12490,7 @@ export namespace Prisma {
     transactionId?: true
     cancelReason?: true
     cancelledBy?: true
+    cancelledAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12508,6 +12513,7 @@ export namespace Prisma {
     transactionId?: true
     cancelReason?: true
     cancelledBy?: true
+    cancelledAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -12617,6 +12623,7 @@ export namespace Prisma {
     transactionId: string | null
     cancelReason: string | null
     cancelledBy: bigint | null
+    cancelledAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: AppointmentCountAggregateOutputType | null
@@ -12658,6 +12665,7 @@ export namespace Prisma {
     transactionId?: boolean
     cancelReason?: boolean
     cancelledBy?: boolean
+    cancelledAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     patient?: boolean | PatientDefaultArgs<ExtArgs>
@@ -12685,6 +12693,7 @@ export namespace Prisma {
     transactionId?: boolean
     cancelReason?: boolean
     cancelledBy?: boolean
+    cancelledAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     patient?: boolean | PatientDefaultArgs<ExtArgs>
@@ -12710,6 +12719,7 @@ export namespace Prisma {
     transactionId?: boolean
     cancelReason?: boolean
     cancelledBy?: boolean
+    cancelledAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -12753,6 +12763,7 @@ export namespace Prisma {
       transactionId: string | null
       cancelReason: string | null
       cancelledBy: bigint | null
+      cancelledAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["appointment"]>
@@ -13169,6 +13180,7 @@ export namespace Prisma {
     readonly transactionId: FieldRef<"Appointment", 'String'>
     readonly cancelReason: FieldRef<"Appointment", 'String'>
     readonly cancelledBy: FieldRef<"Appointment", 'BigInt'>
+    readonly cancelledAt: FieldRef<"Appointment", 'DateTime'>
     readonly createdAt: FieldRef<"Appointment", 'DateTime'>
     readonly updatedAt: FieldRef<"Appointment", 'DateTime'>
   }
@@ -18771,6 +18783,7 @@ export namespace Prisma {
     transactionId: 'transactionId',
     cancelReason: 'cancelReason',
     cancelledBy: 'cancelledBy',
+    cancelledAt: 'cancelledAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -19965,6 +19978,7 @@ export namespace Prisma {
     transactionId?: StringNullableFilter<"Appointment"> | string | null
     cancelReason?: StringNullableFilter<"Appointment"> | string | null
     cancelledBy?: BigIntNullableFilter<"Appointment"> | bigint | number | null
+    cancelledAt?: DateTimeNullableFilter<"Appointment"> | Date | string | null
     createdAt?: DateTimeFilter<"Appointment"> | Date | string
     updatedAt?: DateTimeFilter<"Appointment"> | Date | string
     patient?: XOR<PatientRelationFilter, PatientWhereInput>
@@ -19991,6 +20005,7 @@ export namespace Prisma {
     transactionId?: SortOrderInput | SortOrder
     cancelReason?: SortOrderInput | SortOrder
     cancelledBy?: SortOrderInput | SortOrder
+    cancelledAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     patient?: PatientOrderByWithRelationInput
@@ -20020,6 +20035,7 @@ export namespace Prisma {
     transactionId?: StringNullableFilter<"Appointment"> | string | null
     cancelReason?: StringNullableFilter<"Appointment"> | string | null
     cancelledBy?: BigIntNullableFilter<"Appointment"> | bigint | number | null
+    cancelledAt?: DateTimeNullableFilter<"Appointment"> | Date | string | null
     createdAt?: DateTimeFilter<"Appointment"> | Date | string
     updatedAt?: DateTimeFilter<"Appointment"> | Date | string
     patient?: XOR<PatientRelationFilter, PatientWhereInput>
@@ -20046,6 +20062,7 @@ export namespace Prisma {
     transactionId?: SortOrderInput | SortOrder
     cancelReason?: SortOrderInput | SortOrder
     cancelledBy?: SortOrderInput | SortOrder
+    cancelledAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AppointmentCountOrderByAggregateInput
@@ -20076,6 +20093,7 @@ export namespace Prisma {
     transactionId?: StringNullableWithAggregatesFilter<"Appointment"> | string | null
     cancelReason?: StringNullableWithAggregatesFilter<"Appointment"> | string | null
     cancelledBy?: BigIntNullableWithAggregatesFilter<"Appointment"> | bigint | number | null
+    cancelledAt?: DateTimeNullableWithAggregatesFilter<"Appointment"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Appointment"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Appointment"> | Date | string
   }
@@ -21405,6 +21423,7 @@ export namespace Prisma {
     transactionId?: string | null
     cancelReason?: string | null
     cancelledBy?: bigint | number | null
+    cancelledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     patient: PatientCreateNestedOneWithoutAppointmentsInput
@@ -21431,6 +21450,7 @@ export namespace Prisma {
     transactionId?: string | null
     cancelReason?: string | null
     cancelledBy?: bigint | number | null
+    cancelledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutAppointmentInput
@@ -21451,6 +21471,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     cancelledBy?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     patient?: PatientUpdateOneRequiredWithoutAppointmentsNestedInput
@@ -21477,6 +21498,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     cancelledBy?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutAppointmentNestedInput
@@ -21500,6 +21522,7 @@ export namespace Prisma {
     transactionId?: string | null
     cancelReason?: string | null
     cancelledBy?: bigint | number | null
+    cancelledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21519,6 +21542,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     cancelledBy?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21541,6 +21565,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     cancelledBy?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -22916,6 +22941,7 @@ export namespace Prisma {
     transactionId?: SortOrder
     cancelReason?: SortOrder
     cancelledBy?: SortOrder
+    cancelledAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -22948,6 +22974,7 @@ export namespace Prisma {
     transactionId?: SortOrder
     cancelReason?: SortOrder
     cancelledBy?: SortOrder
+    cancelledAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -22970,6 +22997,7 @@ export namespace Prisma {
     transactionId?: SortOrder
     cancelReason?: SortOrder
     cancelledBy?: SortOrder
+    cancelledAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -25627,6 +25655,7 @@ export namespace Prisma {
     transactionId?: string | null
     cancelReason?: string | null
     cancelledBy?: bigint | number | null
+    cancelledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     doctor: DoctorCreateNestedOneWithoutAppointmentsInput
@@ -25651,6 +25680,7 @@ export namespace Prisma {
     transactionId?: string | null
     cancelReason?: string | null
     cancelledBy?: bigint | number | null
+    cancelledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutAppointmentInput
@@ -25788,6 +25818,7 @@ export namespace Prisma {
     transactionId?: StringNullableFilter<"Appointment"> | string | null
     cancelReason?: StringNullableFilter<"Appointment"> | string | null
     cancelledBy?: BigIntNullableFilter<"Appointment"> | bigint | number | null
+    cancelledAt?: DateTimeNullableFilter<"Appointment"> | Date | string | null
     createdAt?: DateTimeFilter<"Appointment"> | Date | string
     updatedAt?: DateTimeFilter<"Appointment"> | Date | string
   }
@@ -25953,6 +25984,7 @@ export namespace Prisma {
     transactionId?: string | null
     cancelReason?: string | null
     cancelledBy?: bigint | number | null
+    cancelledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     patient: PatientCreateNestedOneWithoutAppointmentsInput
@@ -25977,6 +26009,7 @@ export namespace Prisma {
     transactionId?: string | null
     cancelReason?: string | null
     cancelledBy?: bigint | number | null
+    cancelledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutAppointmentInput
@@ -26504,6 +26537,7 @@ export namespace Prisma {
     transactionId?: string | null
     cancelReason?: string | null
     cancelledBy?: bigint | number | null
+    cancelledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     patient: PatientCreateNestedOneWithoutAppointmentsInput
@@ -26528,6 +26562,7 @@ export namespace Prisma {
     transactionId?: string | null
     cancelReason?: string | null
     cancelledBy?: bigint | number | null
+    cancelledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutAppointmentInput
@@ -26988,6 +27023,7 @@ export namespace Prisma {
     transactionId?: string | null
     cancelReason?: string | null
     cancelledBy?: bigint | number | null
+    cancelledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     patient: PatientCreateNestedOneWithoutAppointmentsInput
@@ -27013,6 +27049,7 @@ export namespace Prisma {
     transactionId?: string | null
     cancelReason?: string | null
     cancelledBy?: bigint | number | null
+    cancelledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -27128,6 +27165,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     cancelledBy?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     patient?: PatientUpdateOneRequiredWithoutAppointmentsNestedInput
@@ -27153,6 +27191,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     cancelledBy?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27934,6 +27973,7 @@ export namespace Prisma {
     transactionId?: string | null
     cancelReason?: string | null
     cancelledBy?: bigint | number | null
+    cancelledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -27964,6 +28004,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     cancelledBy?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     doctor?: DoctorUpdateOneRequiredWithoutAppointmentsNestedInput
@@ -27988,6 +28029,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     cancelledBy?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutAppointmentNestedInput
@@ -28010,6 +28052,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     cancelledBy?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28087,6 +28130,7 @@ export namespace Prisma {
     transactionId?: string | null
     cancelReason?: string | null
     cancelledBy?: bigint | number | null
+    cancelledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -28188,6 +28232,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     cancelledBy?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     patient?: PatientUpdateOneRequiredWithoutAppointmentsNestedInput
@@ -28212,6 +28257,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     cancelledBy?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutAppointmentNestedInput
@@ -28234,6 +28280,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     cancelledBy?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28362,6 +28409,7 @@ export namespace Prisma {
     transactionId?: string | null
     cancelReason?: string | null
     cancelledBy?: bigint | number | null
+    cancelledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -28381,6 +28429,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     cancelledBy?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     patient?: PatientUpdateOneRequiredWithoutAppointmentsNestedInput
@@ -28405,6 +28454,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     cancelledBy?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutAppointmentNestedInput
@@ -28427,6 +28477,7 @@ export namespace Prisma {
     transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     cancelReason?: NullableStringFieldUpdateOperationsInput | string | null
     cancelledBy?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

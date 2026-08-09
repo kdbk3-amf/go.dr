@@ -114,6 +114,63 @@ export async function cleanupSpecialties(specialtyIds: bigint[]): Promise<void> 
   await prisma.specialty.deleteMany({ where: { id: { in: specialtyIds } } });
 }
 
+/** Delete appointments created during a test (hard delete). */
+export async function cleanupAppointments(ids: bigint[]): Promise<void> {
+  if (ids.length === 0) return;
+  await prisma.appointment.deleteMany({ where: { id: { in: ids } } });
+}
+
+/** Delete chambers created during a test (hard delete). */
+export async function cleanupChambers(ids: bigint[]): Promise<void> {
+  if (ids.length === 0) return;
+  await prisma.appointment.deleteMany({ where: { chamberId: { in: ids } } });
+  await prisma.chamber.deleteMany({ where: { id: { in: ids } } });
+}
+
+/**
+ * Create an active chamber with a custom visiting schedule for a
+ * doctor. Used by Phase 3 appointment tests.
+ */
+export async function createChamberForDoctor(doctorId: bigint, opts: {
+  visitingDays?: string;
+  startTimeHour?: number;
+  endTimeHour?: number;
+  slotDurationMinutes?: number;
+  consultationFee?: number;
+  isActive?: boolean;
+} = {}): Promise<bigint> {
+  const chamber = await prisma.chamber.create({
+    data: {
+      doctorId,
+      chamberName: `Test Chamber ${rand(4)}`,
+      address: "Test Address",
+      city: "Dhaka",
+      district: "Dhaka",
+      visitingDays: opts.visitingDays ?? "sat,sun,tue,thu",
+      startTime: timeOfDay(opts.startTimeHour ?? 10),
+      endTime: timeOfDay(opts.endTimeHour ?? 14),
+      slotDurationMinutes: opts.slotDurationMinutes ?? 20,
+      consultationFee: opts.consultationFee ?? 500,
+      isActive: opts.isActive ?? true,
+    },
+  });
+  return chamber.id;
+}
+
+/** Pick a future date that falls on a given weekday (0=Sun..6=Sat). */
+export function futureDateOnWeekday(weekday: number): string {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + 1);
+  while (d.getDay() !== weekday) d.setDate(d.getDate() + 1);
+  // Ensure at least a few days out for the cancellation window.
+  if (d.getTime() - Date.now() < 3 * 24 * 60 * 60 * 1000) {
+    d.setDate(d.getDate() + 7);
+    while (d.getDay() !== weekday) d.setDate(d.getDate() + 7);
+  }
+  return d.toISOString().slice(0, 10);
+}
+
 /**
  * Create a verified, available doctor with a specialty link and an
  * active chamber. Returns the user, doctor id, access token, and

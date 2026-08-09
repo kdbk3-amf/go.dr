@@ -2,9 +2,9 @@
 
 A production-ready healthcare platform for **Bangladesh** that connects patients with verified doctors, hospitals and easy appointment booking.
 
-> **Status:** Phase 2 — Core Doctor, Specialty, Hospital & Chamber System (complete).
-> Phase 0 (foundation), Phase 1 (auth & users), and Phase 2 (doctor/specialty/hospital/chamber/search) are implemented.
-> Appointments, payments, SMS/OTP, notifications, reviews, prescriptions, medical records and the frontend UI are planned for later phases.
+> **Status:** Phase 3 — Appointment & Slot Booking System (complete).
+> Phase 0 (foundation), Phase 1 (auth & users), Phase 2 (doctor/specialty/hospital/chamber/search), and Phase 3 (slots, booking, status transitions, cancellation) are implemented.
+> Payments, SMS/OTP, notifications, reviews, prescriptions, medical records and the frontend UI are planned for later phases.
 
 ## Tech Stack
 
@@ -138,7 +138,7 @@ Open http://localhost:3000 — the home page shows foundation status and DB conn
 | `npm run db:seed` | Run the seed script |
 | `npm run db:setup` | Migrate + seed in one command |
 | `npm run prisma:studio` | Open Prisma Studio (DB browser) |
-| `npm test` | Run the integration test suite (63 tests) |
+| `npm test` | Run the integration test suite (98 tests) |
 
 ## API Reference
 
@@ -224,6 +224,83 @@ GET /api/v1/doctors?specialty=cardiology&district=Chattogram&page=1&limit=20
 | GET | `/api/v1/admin/chambers` | admin | All chambers |
 | PATCH/DELETE | `/api/v1/admin/chambers/[id]` | admin | Update/soft-delete any chamber |
 
+### Slots (Phase 3)
+
+| Method | Endpoint | Auth | Description |
+| --- | --- | --- | --- |
+| GET | `/api/v1/chambers/[chamberId]/slots?date=YYYY-MM-DD` | – | Available + unavailable time slots for a chamber on a date |
+
+Slots are derived from the chamber's `visitingDays`, `startTime`/`endTime`, and
+`slotDurationMinutes`. A slot is `available: false` when it is in the past or
+already booked by a non-cancelled appointment. Inactive chambers and
+unverified/unavailable doctors return 404. Non-visiting days return an empty
+slot list. Malformed dates return 400.
+
+```bash
+GET /api/v1/chambers/12/slots?date=2026-08-15
+# → { date, chamberId, slots: [{ startTime, endTime, serialNo, available }, ...] }
+```
+
+### Appointments (Phase 3)
+
+| Method | Endpoint | Auth | Description |
+| --- | --- | --- | --- |
+| POST | `/api/v1/appointments` | patient | Book an appointment (slot, date, time) |
+| GET | `/api/v1/appointments` | admin | List/filter all appointments (doctor, patient, chamber, date, status, upcoming) |
+| GET | `/api/v1/appointments/my` | patient | List own appointments (status, upcoming, pagination, sort) |
+| GET | `/api/v1/appointments/[id]` | patient | View own appointment (ownership enforced) |
+| PATCH | `/api/v1/appointments/[id]` | patient | Cancel own appointment (cancellation window enforced) |
+| GET | `/api/v1/doctor/appointments` | doctor | List own appointments (status, upcoming, pagination, sort) |
+| GET | `/api/v1/doctor/appointments/[id]` | doctor | View own appointment (ownership enforced) |
+| PATCH | `/api/v1/doctor/appointments/[id]` | doctor | Confirm / complete / no-show / cancel own appointment |
+| GET | `/api/v1/admin/appointments` | admin | List/filter all appointments |
+| GET | `/api/v1/admin/appointments/[id]` | admin | View any appointment |
+| PATCH | `/api/v1/admin/appointments/[id]` | admin | Manage status of any appointment |
+
+**Booking** is transaction-safe: `doctorId`, `consultationFee`,
+`appointmentNumber` (auto-generated `APT-YYYY-NNNNNN`), `patientId`, and
+`serialNo` are all server-derived and never trusted from the request body.
+Double-booking is prevented at two layers — an application-level check inside
+the transaction **and** a database-level partial unique index
+`appointments_active_slot_unique_key` on `(chamberId, appointmentDate,
+appointmentTime, serialNo) WHERE status NOT IN cancelled`. A race between two
+patients booking the same slot resolves to exactly one 201 and one 409.
+
+**Status transitions** are centralized in `src/lib/appointments/status.ts`.
+Valid lifecycle:
+
+```
+PENDING → CONFIRMED → COMPLETED
+PENDING → CONFIRMED → NO_SHOW
+PENDING → CANCELLED
+CONFIRMED → CANCELLED
+```
+
+`COMPLETED` and `NO_SHOW` are terminal. `CANCELLED` is terminal and records
+`cancelledBy`, `cancelledAt`, and an optional `cancelReason`. Patients may only
+cancel (never change doctor/chamber/date/time); their cancellation is rejected
+if the appointment start is within the configurable patient cancellation window
+or the appointment is already terminal. Doctors and admins may confirm,
+complete, mark no-show, or cancel.
+
+**Ownership:** patients and doctors can only access appointments where they are
+a party; cross-access returns 404 (existence is not leaked).
+
+```bash
+# Book
+POST /api/v1/appointments  (patient bearer)
+{ "chamberId": "12", "date": "2026-08-15", "time": "10:00", "patientProblem": "Fever" }
+# → 201 { appointment: { appointmentNumber, status: "PENDING", serialNo, ... } }
+
+# Doctor confirms
+PATCH /api/v1/doctor/appointments/55  (doctor bearer)
+{ "status": "CONFIRMED" }
+
+# Patient cancels (within the allowed window)
+PATCH /api/v1/appointments/55  (patient bearer)
+{ "cancelReason": "Feeling better" }
+```
+
 ### Locations (Phase 2)
 
 | Method | Endpoint | Auth | Description |
@@ -245,6 +322,8 @@ GET /api/v1/doctors?specialty=cardiology&district=Chattogram&page=1&limit=20
 3. An admin verifies the doctor via `PATCH /api/v1/admin/doctors/[id]/verify`.
 4. The verified doctor creates chambers via `POST /api/v1/doctors/me/chambers`.
 5. Patients search verified doctors via `GET /api/v1/doctors` and view profiles via `GET /api/v1/doctors/[id]`.
+6. Patients fetch available slots via `GET /api/v1/chambers/[chamberId]/slots?date=...` and book via `POST /api/v1/appointments`.
+7. The doctor confirms / completes / marks no-show via `PATCH /api/v1/doctor/appointments/[id]`; patients may cancel their own via `PATCH /api/v1/appointments/[id]`.
 
 ## Database Migrations & Seed
 
@@ -268,7 +347,7 @@ practitioners.
 
 ```bash
 npm run dev          # start dev server on :3000
-npm test             # 63 integration tests (auth + Phase 2)
+npm test             # 98 integration tests (auth + Phase 2 + Phase 3)
 npm run typecheck    # tsc --noEmit
 npm run lint         # eslint
 npm run build        # production build
